@@ -17,12 +17,12 @@ accounts:
   claude-pro:    { billing: subscription,  windows: [5h, weekly] }
   chatgpt-plus:  { billing: subscription,  windows: [5h, weekly] }
 
-# devcontainer-cloud 上的 Claude Code 登录已过期（OAuth refresh 失败），暂时都放在 devcontainer.local；
-# 重新登录后把 Reviewer 和 Auditor 挪回 devcontainer-cloud，恢复“不同机器”的隔离。
+# 现状：devcontainer-cloud 的 Claude Code、devcontainer.local 的 Codex 登录都已过期，
+# 所以 Claude 系 agent 放 devcontainer.local，Codex 系 agent 放 devcontainer-cloud。两边重新登录后再按需调整。
 agents:
   ex-planner:     { role: planner,     account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 1 }
   ex-impl-claude: { role: implementer, account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 2 }
-  ex-impl-codex:  { role: implementer, account: chatgpt-plus, runtime: codex@devcontainer.local,  model: default, max_tasks: 2 }
+  ex-impl-codex:  { role: implementer, account: chatgpt-plus, runtime: codex@devcontainer-cloud,  model: default, max_tasks: 2 }
   ex-rev-claude:  { role: reviewer,    account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 2 }
-  ex-rev-codex:   { role: reviewer,    account: chatgpt-plus, runtime: codex@devcontainer.local,  model: default, max_tasks: 2 }
+  ex-rev-codex:   { role: reviewer,    account: chatgpt-plus, runtime: codex@devcontainer-cloud,  model: default, max_tasks: 2 }
   ex-auditor:     { role: auditor,     account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 1 }
