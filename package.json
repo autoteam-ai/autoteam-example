@@ -1,0 +1,16 @@
+{
+  "name": "orders",
+  "version": "0.1.0",
+  "description": "订单命令行工具，ai-workflow 的演示项目",
+  "type": "module",
+  "bin": {
+    "orders": "bin/orders.mjs"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

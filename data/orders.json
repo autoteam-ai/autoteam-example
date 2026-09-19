@@ -1,0 +1,12 @@
+[
+  { "id": "SO-1001", "date": "2026-08-30", "customer": "Northwind", "amount": 120.5, "status": "paid" },
+  { "id": "SO-1002", "date": "2026-08-31", "customer": "Acme, Inc.", "amount": 89, "status": "paid" },
+  { "id": "SO-1003", "date": "2026-09-01", "customer": "Globex", "amount": 45.25, "status": "pending" },
+  { "id": "SO-1004", "date": "2026-09-01", "customer": "Initech", "amount": 300, "status": "paid" },
+  { "id": "SO-1005", "date": "2026-09-05", "customer": "Bob \"The Builder\"", "amount": 15.99, "status": "refunded" },
+  { "id": "SO-1006", "date": "2026-09-10", "customer": "Umbrella", "amount": 999.99, "status": "paid" },
+  { "id": "SO-1007", "date": "2026-09-15", "customer": "Stark Industries", "amount": 1500, "status": "paid" },
+  { "id": "SO-1008", "date": "2026-09-18", "customer": "Wayne Enterprises", "amount": 250, "status": "pending" },
+  { "id": "SO-1009", "date": "2026-09-30", "customer": "Hooli", "amount": 60, "status": "paid" },
+  { "id": "SO-1010", "date": "2026-10-01", "customer": "Pied Piper", "amount": 42, "status": "paid" }
+]
