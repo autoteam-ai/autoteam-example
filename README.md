@@ -6,6 +6,7 @@
 node bin/orders.mjs list                 # 列出 data/orders.json 里的订单
 node bin/orders.mjs list --file x.json   # 指定订单文件
 node bin/orders.mjs top 3                # 列出金额最高的 3 个订单
+node bin/orders.mjs customer "Acme, Inc." # 列出某个客户的全部订单（大小写不敏感，完整匹配）
 ```
 
 ## 开发

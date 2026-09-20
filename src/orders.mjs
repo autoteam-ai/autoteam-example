@@ -17,6 +17,22 @@ export function topOrders(orders, n) {
     .slice(0, n);
 }
 
+/** 按客户名过滤订单（大小写不敏感、完整匹配），按订单号升序排列。 */
+export function ordersByCustomer(orders, customer) {
+  const needle = customer.toLowerCase();
+  return orders
+    .filter((o) => o.customer.toLowerCase() === needle)
+    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+}
+
+/** 计算订单数和总金额。 */
+export function summarizeOrders(orders) {
+  return {
+    count: orders.length,
+    total: orders.reduce((sum, o) => sum + o.amount, 0),
+  };
+}
+
 /** 把订单格式化成按列对齐的文本表格。 */
 export function formatTable(orders) {
   const header = ['id', 'date', 'customer', 'amount', 'status'];
