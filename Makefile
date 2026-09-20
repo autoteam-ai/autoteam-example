@@ -2,7 +2,7 @@
 .PHONY: check dev deploy
 
 NODE ?= node
-FILES := $(shell find bin src test -name '*.mjs')
+FILES := $(shell find bin src test e2e -name '*.mjs' -not -path '*/runs/*')
 
 check: ## 全部检查：语法检查 + 单元测试
 	@$(NODE) --version
