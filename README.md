@@ -5,6 +5,7 @@
 ```bash
 node bin/orders.mjs list                 # 列出 data/orders.json 里的订单
 node bin/orders.mjs list --file x.json   # 指定订单文件
+node bin/orders.mjs top 3                # 列出金额最高的 3 个订单
 ```
 
 ## 开发

@@ -10,6 +10,13 @@ export async function loadOrders(path) {
   return orders;
 }
 
+/** 按金额从高到低取前 n 个订单；金额相同时按订单号升序排列。 */
+export function topOrders(orders, n) {
+  return [...orders]
+    .sort((a, b) => b.amount - a.amount || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
+    .slice(0, n);
+}
+
 /** 把订单格式化成按列对齐的文本表格。 */
 export function formatTable(orders) {
   const header = ['id', 'date', 'customer', 'amount', 'status'];

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // orders：订单命令行工具。参数解析和输出在这里，业务逻辑在 src/。
 import { fileURLToPath } from 'node:url';
-import { loadOrders, formatTable } from '../src/orders.mjs';
+import { loadOrders, formatTable, topOrders } from '../src/orders.mjs';
 
 const DEFAULT_FILE = fileURLToPath(new URL('../data/orders.json', import.meta.url));
 
@@ -9,6 +9,7 @@ const HELP = `用法：orders <命令> [选项]
 
 命令：
   list          列出订单
+  top <N>       列出金额最高的 N 个订单（N 超过总数时列出全部）
 
 选项：
   --file <路径>  订单文件（默认 data/orders.json）
@@ -37,14 +38,24 @@ async function main() {
     console.log(HELP);
     return;
   }
-  const orders = await loadOrders(args.file ?? DEFAULT_FILE);
-  switch (command) {
-    case 'list':
-      console.log(formatTable(orders));
-      break;
-    default:
-      console.error(`未知命令：${command}\n\n${HELP}`);
+  if (command === 'top') {
+    const raw = args._[1];
+    const n = Number(raw);
+    if (!/^\d+$/.test(raw ?? '') || n <= 0) {
+      console.error(`orders：top 需要一个正整数参数，收到 "${raw ?? ''}"`);
       process.exitCode = 1;
+      return;
+    }
+  } else if (command !== 'list') {
+    console.error(`未知命令：${command}\n\n${HELP}`);
+    process.exitCode = 1;
+    return;
+  }
+  const orders = await loadOrders(args.file ?? DEFAULT_FILE);
+  if (command === 'top') {
+    console.log(formatTable(topOrders(orders, Number(args._[1]))));
+  } else {
+    console.log(formatTable(orders));
   }
 }
 
