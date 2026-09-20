@@ -18,3 +18,4 @@ orders：一个零依赖的 Node 命令行工具，用来演示 autoteam。
 - PR 标题以任务编号开头（如 `HDGCS-123 按日期导出订单`），不写 `Closes` / `Fixes` 等关闭关键字：任务要等线上验收通过才算完成。
 - `.github/`、`ops/agents/`、`Makefile`、`.jscpd.json` 是约束 agent 的规则文件，只能由人批准修改；需要改时写进评论的“范围外发现”。
 <!-- <<< autoteam <<< -->
+- `e2e/` 是验证 autoteam 本身的框架，不是业务代码，也不受本文件其他规则约束：每轮验证前 `e2e/reset.sh` 把仓库回到 `baseline` tag，但不动 `e2e/`。Playwright 只在这里用，是 devDependency，项目运行时依然零依赖。
