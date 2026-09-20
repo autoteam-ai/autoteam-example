@@ -8,10 +8,10 @@
 //   node e2e/record.mjs --run v0.2.0 --pr 8 --pr 9 --issue HDGCS-21
 //   node e2e/record.mjs --login            # 只打开浏览器登录，不截图
 //
-// 首次运行会打开一个有头浏览器让你登录 GitHub，登录态存在 e2e/.auth/（已 gitignore），
-// 之后都是无头。--login 可以随时重新登录。
+// 公开仓库不用登录就能截 PR、检查、Release 页面。只有要截 Settings 里的规则集页
+// （需要 admin），才先跑一次 --login，登录态存在 e2e/.auth/（已 gitignore）。
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -52,8 +52,11 @@ function collectTimeline({ repo, prs, issues }) {
   const L = [];
   const add = (h, body) => L.push(`## ${h}\n\n${body.trim() || '（无）'}\n`);
 
+  // 被测版本要能唯一定位到一次提交：只写 "0.1.0" 分不清是哪天装的那一版
+  const skill = '.claude/skills/autoteam/scripts/autoteam';
   add('被测版本', [
-    `- autoteam skill：${shOrEmpty('sed', ['-n', 's/^name: //p', '.claude/skills/autoteam/SKILL.md']) || '未安装'}`,
+    `- autoteam：${shOrEmpty('bash', [skill, 'version']) || '未安装'}`,
+    `- skill 装的是：${shOrEmpty('jq', ['-r', '.skills.autoteam | "\\(.source)@\\(.commit // .version // "?")"', 'skills-lock.json']) || '（没有 skills-lock.json，按上面的版本号算）'}`,
     `- example HEAD：${shOrEmpty('git', ['rev-parse', '--short', 'HEAD'])} ${shOrEmpty('git', ['log', '-1', '--format=%s'])}`,
     `- 记录时间：${new Date().toISOString()}`,
     `- 合并模式：${shOrEmpty('bash', ['ops/agents/scripts/merge-mode.sh'])}`,
@@ -101,30 +104,30 @@ async function capture({ repo, prs, outDir, loginOnly }) {
     process.exit(1);
   }
 
-  const fresh = !existsSync(authDir);
+  // 公开仓库的 PR、检查、Release 页面不登录就能看，所以默认无头直接截。
+  // 登录只在两种情况下需要：私有仓库，或者想截 Settings 里的规则集页（要 admin）。
   const ctx = await chromium.launchPersistentContext(authDir, {
-    headless: !(fresh || loginOnly),
+    headless: !loginOnly,
     viewport: { width: 1440, height: 900 },
   });
   const page = ctx.pages()[0] ?? (await ctx.newPage());
 
-  await page.goto('https://github.com/', { waitUntil: 'domcontentloaded' });
-  let logged = await page.locator('[data-login]').count() > 0;
-  if (!logged || loginOnly) {
-    console.log('\n需要你在弹出的浏览器里登录 GitHub，登录完这里会自动继续（最多等 5 分钟）。\n');
+  if (loginOnly) {
+    console.log('\n在弹出的浏览器里登录 GitHub，登录完这里会自动继续（最多等 5 分钟）。\n');
     await page.goto('https://github.com/login', { waitUntil: 'domcontentloaded' });
     await page.waitForSelector('[data-login]', { timeout: 300_000 });
-    logged = true;
     console.log('登录成功，登录态已存在 e2e/.auth/');
-  }
-  if (loginOnly) {
     await ctx.close();
     return;
   }
 
+  await page.goto('https://github.com/', { waitUntil: 'domcontentloaded' });
+  const logged = (await page.locator('[data-login]').count()) > 0;
+  console.log(logged ? '  （已登录，能截 Settings 页）' : '  （未登录，只截公开页面；要截规则集页先跑 --login）');
+
   const shots = [
-    ['rules', `https://github.com/${repo}/settings/rules`, '仓库规则集列表'],
-    ['releases', `https://github.com/${repo}/releases`, 'Release 列表（线上）'],
+    ['releases', `https://github.com/${repo}/releases`, 'Release 列表（这个项目的线上）'],
+    ...(logged ? [['rules', `https://github.com/${repo}/settings/rules`, '仓库规则集列表']] : []),
     ...prs.flatMap((n) => [
       [`pr-${n}`, `https://github.com/${repo}/pull/${n}`, `PR #${n} 概览`],
       [`pr-${n}-checks`, `https://github.com/${repo}/pull/${n}/checks`, `PR #${n} 检查`],

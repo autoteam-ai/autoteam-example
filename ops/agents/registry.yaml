@@ -19,10 +19,12 @@ accounts:
 
 # E2E 靶场：全部 agent 跑在 devcontainer.local 这一台机器上，用来验证
 # autoteam 本身；名字统一带 ex- 前缀，和 HDGCS 工作区里的正式 agent 区分开。
+# 两个 Reviewer 的 env_file 里是 autoteam-bot 的 GitHub token：它们要用一个
+# 独立于 Implementer 的账号才能批准 PR（GitHub 不允许作者批准自己的 PR）。
 agents:
   ex-planner:     { role: planner,     account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 1 }
   ex-impl-claude: { role: implementer, account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 2 }
   ex-impl-codex:  { role: implementer, account: chatgpt-plus, runtime: codex@devcontainer.local,  model: default, max_tasks: 2 }
-  ex-rev-claude:  { role: reviewer,    account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 2 }
-  ex-rev-codex:   { role: reviewer,    account: chatgpt-plus, runtime: codex@devcontainer.local,  model: default, max_tasks: 2 }
+  ex-rev-claude:  { role: reviewer,    account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 2, env_file: ops/agents/local/reviewer-env.json }
+  ex-rev-codex:   { role: reviewer,    account: chatgpt-plus, runtime: codex@devcontainer.local,  model: default, max_tasks: 2, env_file: ops/agents/local/reviewer-env.json }
   ex-auditor:     { role: auditor,     account: claude-pro,   runtime: claude@devcontainer.local, model: default, max_tasks: 1 }
