@@ -21,7 +21,8 @@ jobs:
           node-version: 22
 
       # PR 改动行数上限在 ops/agents/autoteam.conf 的 AUTOTEAM_PR_MAX_LINES（默认 400，参考 AI PR 的 75 分位 408 行）。
-      # lock 文件不计；规则文件（.github/、ops/agents/）受 CODEOWNERS 保护、由人批准，也不计
+      # lock 文件不计；规则文件（.github/、ops/agents/）受 CODEOWNERS 保护、由人批准，也不计；
+      # e2e/runs/ 是每轮验证留下的证据，不是改动出来的代码，同样不计
       - name: pr-size
         if: github.event_name == 'pull_request'
         env:
@@ -33,6 +34,7 @@ jobs:
             ':(exclude,glob)**/*.lock' ':(exclude,glob)**/package-lock.json' \
             ':(exclude,glob)**/pnpm-lock.yaml' ':(exclude,glob)**/go.sum' \
             ':(exclude,glob).github/**' ':(exclude,glob)ops/agents/**' \
+            ':(exclude,glob)e2e/runs/**' \
             | awk '{s += $1 + $2} END {print s + 0}')
           echo "本 PR 改动 $changed 行，上限 $max 行"
           if [ "$changed" -gt "$max" ]; then

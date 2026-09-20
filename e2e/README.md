@@ -42,3 +42,8 @@ node e2e/record.mjs --login
 ```
 
 Playwright 是 devDependency，`make check` 不依赖它，这个项目运行时仍然零依赖。
+
+## 证据目录会长大
+
+每轮留下一份 `runs/<id>/`，里面有几张整页截图（每张几百 KB）。留最近两三轮够用了，
+更早的直接删目录——历史在 git 里还能翻到。
