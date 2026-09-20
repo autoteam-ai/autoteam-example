@@ -1,4 +1,4 @@
-# orders 示例项目。check / dev / deploy 是 ai-workflow 约定的三个入口。
+# orders 示例项目。check / dev / deploy 是 autoteam 约定的三个入口。
 .PHONY: check dev deploy
 
 NODE ?= node
