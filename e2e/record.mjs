@@ -56,7 +56,8 @@ function collectTimeline({ repo, prs, issues }) {
   const skill = '.claude/skills/autoteam/scripts/autoteam';
   add('被测版本', [
     `- autoteam：${shOrEmpty('bash', [skill, 'version']) || '未安装'}`,
-    `- skill 装的是：${shOrEmpty('jq', ['-r', '.skills.autoteam | "\\(.source)@\\(.commit // .version // "?")"', 'skills-lock.json']) || '（没有 skills-lock.json，按上面的版本号算）'}`,
+    `- skill 来源：${shOrEmpty('jq', ['-r', '.skills.autoteam | "\\(.source) hash=\\(.computedHash[0:12])"', 'skills-lock.json']) || '（没有 skills-lock.json）'}`,
+    `- 本体那一版：${shOrEmpty('gh', ['api', 'repos/autoteam-ai/autoteam/commits/main', '--jq', '"\\(.sha[0:7]) \\(.commit.message | split("\\n")[0])"'])}`,
     `- example HEAD：${shOrEmpty('git', ['rev-parse', '--short', 'HEAD'])} ${shOrEmpty('git', ['log', '-1', '--format=%s'])}`,
     `- 记录时间：${new Date().toISOString()}`,
     `- 合并模式：${shOrEmpty('bash', ['ops/agents/scripts/merge-mode.sh'])}`,
@@ -83,10 +84,13 @@ function collectTimeline({ repo, prs, issues }) {
     add(`PR #${n}`, `${meta}\n\n评论：\n${events}`);
   }
 
+  // multica 的 profile 和工作区：本机可能配了多个 profile，CLI 不会猜
+  const mcArgs = process.env.MULTICA_PROFILE ? ['--profile', process.env.MULTICA_PROFILE] : [];
+  const mc = (args) => shOrEmpty('multica', [...mcArgs, ...args]);
   for (const key of issues) {
-    const view = shOrEmpty('multica', ['issue', 'view', key]);
-    const comments = shOrEmpty('multica', ['issue', 'comment', 'list', key]);
-    const runs = shOrEmpty('multica', ['issue', 'runs', key]);
+    const view = mc(['issue', 'get', key]);
+    const comments = mc(['issue', 'comment', 'list', key]);
+    const runs = mc(['issue', 'runs', key]);
     add(`任务 ${key}`, [view, '', '### 评论', comments, '', '### 运行记录', runs].join('\n'));
   }
 
