@@ -6,3 +6,6 @@
 /Makefile        @songhuangcn
 /.jscpd.json     @songhuangcn
 # <<< autoteam <<<
+
+# 不在 autoteam 受管块里：./autoteam 入口决定 agent 实际跑哪一版 autoteam，也只能由人批准修改
+/autoteam        @songhuangcn
