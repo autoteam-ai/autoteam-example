@@ -1,0 +1,110 @@
+[
+  {
+    "id": "designing-data-intensive-applications",
+    "title": "数据密集型应用系统设计",
+    "author": "Martin Kleppmann",
+    "year": 2017,
+    "status": "reading",
+    "added": "2026-09-01",
+    "note": "复制、分区、事务一章一章啃，适合带着线上问题读。"
+  },
+  {
+    "id": "thinking-in-systems",
+    "title": "系统之美",
+    "author": "Donella H. Meadows",
+    "year": 2008,
+    "status": "reading",
+    "added": "2026-08-18",
+    "note": "存量、流量和反馈回路，看团队流程也用得上。"
+  },
+  {
+    "id": "accelerate",
+    "title": "加速：精益软件和 DevOps 背后的科学",
+    "author": "Nicole Forsgren, Jez Humble, Gene Kim",
+    "year": 2018,
+    "status": "want",
+    "added": "2026-09-12",
+    "note": "四个交付指标的出处。"
+  },
+  {
+    "id": "software-engineering-at-google",
+    "title": "Google 软件工程",
+    "author": "Titus Winters, Tom Manshreck, Hyrum Wright",
+    "year": 2020,
+    "status": "want",
+    "added": "2026-09-05",
+    "note": "代码评审和大规模测试两章先看。"
+  },
+  {
+    "id": "domain-driven-design",
+    "title": "领域驱动设计",
+    "author": "Eric Evans",
+    "year": 2003,
+    "status": "want",
+    "added": "2026-07-30",
+    "note": "战略设计部分比战术模式更值得读。"
+  },
+  {
+    "id": "computer-systems-a-programmers-perspective",
+    "title": "深入理解计算机系统（第 3 版）",
+    "author": "Randal E. Bryant, David R. O'Hallaron",
+    "year": 2015,
+    "status": "want",
+    "added": "2026-07-02",
+    "note": "配合实验一起做，不要只看书。"
+  },
+  {
+    "id": "a-philosophy-of-software-design",
+    "title": "软件设计的哲学",
+    "author": "John Ousterhout",
+    "year": 2018,
+    "status": "done",
+    "added": "2026-06-20",
+    "note": "深模块、浅模块，一句话就能用来评审接口。"
+  },
+  {
+    "id": "the-pragmatic-programmer",
+    "title": "程序员修炼之道（第 2 版）",
+    "author": "David Thomas, Andrew Hunt",
+    "year": 2019,
+    "status": "done",
+    "added": "2026-05-11",
+    "note": "新人入职推荐第一本。"
+  },
+  {
+    "id": "refactoring",
+    "title": "重构：改善既有代码的设计（第 2 版）",
+    "author": "Martin Fowler",
+    "year": 2018,
+    "status": "done",
+    "added": "2026-04-08",
+    "note": "坏味道目录当检查清单用。"
+  },
+  {
+    "id": "the-phoenix-project",
+    "title": "凤凰项目",
+    "author": "Gene Kim, Kevin Behr, George Spafford",
+    "year": 2013,
+    "status": "done",
+    "added": "2026-03-15",
+    "note": "小说形式讲运维和交付，一个周末读完。"
+  },
+  {
+    "id": "code-complete",
+    "title": "代码大全（第 2 版）",
+    "author": "Steve McConnell",
+    "year": 2004,
+    "status": "done",
+    "added": "2026-02-02",
+    "note": "当工具书查，不必从头读。"
+  },
+  {
+    "id": "the-mythical-man-month",
+    "title": "人月神话",
+    "author": "Frederick P. Brooks Jr.",
+    "year": 1975,
+    "status": "done",
+    "added": "2026-01-10",
+    "note": "“往延期的项目里加人只会更晚”，放到 agent 团队里依然成立。"
+  }
+]

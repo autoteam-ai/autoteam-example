@@ -1,0 +1,29 @@
+// 把书单生成成静态站点：页面、JSON 接口、版本文件。
+import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { dirname, join } from 'node:path';
+import { loadBooks, sortBooks } from './books.mjs';
+import { renderIndex } from './html.mjs';
+
+export async function build({ dataFile, outDir, sha = 'dev', builtAt = new Date().toISOString() }) {
+  const books = sortBooks(await loadBooks(dataFile));
+  const version = { sha, built_at: builtAt };
+  const files = {
+    'index.html': renderIndex(books, { version }),
+    'api/books.json': json({ count: books.length, books }),
+    // 部署后用它确认线上跑的是哪个提交
+    'version.json': json(version),
+    // 关掉 GitHub Pages 的 Jekyll 处理，文件原样发布
+    '.nojekyll': '',
+  };
+  await rm(outDir, { recursive: true, force: true });
+  for (const [rel, content] of Object.entries(files)) {
+    const path = join(outDir, rel);
+    await mkdir(dirname(path), { recursive: true });
+    await writeFile(path, content);
+  }
+  return Object.keys(files);
+}
+
+function json(value) {
+  return `${JSON.stringify(value, null, 2)}\n`;
+}

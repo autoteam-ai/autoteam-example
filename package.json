@@ -1,0 +1,16 @@
+{
+  "name": "bookshelf",
+  "version": "0.1.0",
+  "private": true,
+  "description": "团队书架：零依赖的静态网站生成器，autoteam 的官方示例项目",
+  "type": "module",
+  "scripts": {
+    "build": "node bin/build.mjs",
+    "test": "node --test test/*.test.mjs",
+    "start": "node bin/build.mjs && node bin/serve.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT"
+}
