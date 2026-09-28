@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "generated_at": "2026-09-28T23:15:13Z",
+  "files": {
+    ".autoteam/README.md": { "kind": "file", "sha256": "dd72290340d83cd67f14cd3de0bb4059f5297a0765f0413a71bccf6558737801" },
+    ".autoteam/instruction-budget": { "kind": "file", "sha256": "31e85a78a1eb4c12781b841646d58e9cf9a605f50236fdf50af53a57b7d37ec5" },
+    ".autoteam/playbook.md": { "kind": "file", "sha256": "5bb7df26327ec06f9f2e8982c50ebf2470fc0eb470ba5c9a50bd0cff140600dc" },
+    ".autoteam/scripts/check-instruction-budget.sh": { "kind": "file", "sha256": "95844076e3c251ae5e4c9614e19d2a1c748ee45a0fcb70389aa2960f6dce3e9d" },
+    ".autoteam/scripts/gh-app-token.sh": { "kind": "file", "sha256": "2a6ddfc77f5301f1129d7a33dffdef46935243d897b712669ff9cc4bc1ceb5e9" },
+    ".autoteam/scripts/health-metrics.sh": { "kind": "file", "sha256": "93dea04e2ac9dde6ad82eba0395e8d63bb0d6720993751d413587d18f617acfc" },
+    ".autoteam/scripts/loop-guard.sh": { "kind": "file", "sha256": "a4141976fceddc578b3c414f52216df46e4de1d4fd30f7bbe7497a374823a26c" },
+    ".autoteam/scripts/merge-mode.sh": { "kind": "file", "sha256": "8add493689d2a51bea1803138ea70707d860ecc646a10f28ab41f5e1694da847" },
+    ".autoteam/scripts/merge-status.sh": { "kind": "file", "sha256": "630c037a6f983260842f7fec794ca964990f89ce613ac03f5689fb172c78f30a" },
+    ".autoteam/scripts/open-pr.sh": { "kind": "file", "sha256": "4cdf0b3b5f52d6ce701cd789756d9f5905f3ba407fca9071e825b4259d778649" },
+    ".autoteam/scripts/protected-paths.sh": { "kind": "file", "sha256": "c52f105c3d1418efe51266ce9c1421dc22d53f02c5fd949ff4cdea292af6c6cd" },
+    ".github/CODEOWNERS": { "kind": "block", "sha256": "2edd24b01f313a3f0dcd03d2924930ffd247a735d6bbff2a587a593a418348c8" },
+    ".github/pull_request_template.md": { "kind": "file", "sha256": "3791e9eefa72be4118c9f06801ac8a106c3c7afc43d433129b95f20be41d2dca" },
+    ".github/workflows/deploy.yml": { "kind": "file", "sha256": "5f6ac6e7d09b6197431fe1bee6b52ae4cdadf59b0c34b951e3b07342ca6d1627" },
+    ".github/workflows/gate.yml": { "kind": "file", "sha256": "4b0efc36d29ae9c5fb45641fb9cb6822e48eb5d64798fde6132d4fae591f3df7" },
+    ".github/workflows/rollback.yml": { "kind": "file", "sha256": "dd79c11958b154fdcc79e6c64b5c6c22cd1dfa5714822ed95f71f210649ee6bd" },
+    ".gitignore": { "kind": "block", "sha256": "dd5d86136f662b6a909bdde3fdd910499877bd854921c955f827337c8d877c6b" },
+    ".jscpd.json": { "kind": "file", "sha256": "07d737fc41eedd7354b26087c3040016ed9b11be8fb845f4cf0c3100ed00bcde" },
+    "AGENTS.md": { "kind": "block", "sha256": "1c7ccb53827946ada37fbcf94b35fe52d7011639f858859f1d8af0e74f4122ee" }
+  }
+}

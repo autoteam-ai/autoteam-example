@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "autoteam": {
+      "source": "autoteam-ai/autoteam",
+      "sourceType": "github",
+      "skillPath": "skills/autoteam/SKILL.md",
+      "computedHash": "251efd4c7eed777d7150ca3d4641c19a36eb011e4462c1aa69ea3f3d019f81d9"
+    }
+  }
+}
