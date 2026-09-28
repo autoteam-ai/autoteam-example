@@ -1,2 +1,12 @@
 node_modules/
 dist/
+
+# >>> autoteam >>>
+# jscpd 报告目录；registry.yaml 里 env_file 指向的本地环境变量文件（可能含密钥）
+/report/
+/.autoteam/local/
+# <<< autoteam <<<
+.dev-server.pid
+.dev-server.log
+# 本机安装的 autoteam skill（npx skills add），版本记在 skills-lock.json
+.claude/skills/
