@@ -5,15 +5,36 @@ import { readFile } from 'node:fs/promises';
 export const STATUSES = ['reading', 'want', 'done'];
 export const STATUS_LABELS = { reading: '在读', want: '想读', done: '读完' };
 
-export async function loadBooks(file) {
+export async function loadBooks(file, tags) {
   const books = JSON.parse(await readFile(file, 'utf8'));
-  validateBooks(books);
+  validateBooks(books, tags);
   return books;
 }
 
+export async function loadTags(file) {
+  const tags = JSON.parse(await readFile(file, 'utf8'));
+  validateTags(tags);
+  return tags;
+}
+
+export function validateTags(tags) {
+  if (!Array.isArray(tags)) throw new Error('标签必须是数组');
+  const ids = new Set();
+  tags.forEach((tag, i) => {
+    const where = `第 ${i + 1} 个标签（${tag?.id ?? '没有 id'}）`;
+    for (const key of ['id', 'name']) {
+      if (typeof tag?.[key] !== 'string' || tag[key].trim() === '') throw new Error(`${where}：缺少 ${key}`);
+    }
+    if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(tag.id)) throw new Error(`${where}：id 只能用小写字母、数字和连字符`);
+    if (ids.has(tag.id)) throw new Error(`${where}：id 重复`);
+    ids.add(tag.id);
+  });
+}
+
 // 数据有错就在构建时失败，而不是生成一个缺字段的页面
-export function validateBooks(books) {
+export function validateBooks(books, tags) {
   if (!Array.isArray(books)) throw new Error('书单必须是数组');
+  const tagIds = new Set(tags.map((tag) => tag.id));
   const ids = new Set();
   books.forEach((b, i) => {
     const where = `第 ${i + 1} 本书（${b?.id ?? '没有 id'}）`;
@@ -29,7 +50,23 @@ export function validateBooks(books) {
     if (typeof b.added !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(b.added)) {
       throw new Error(`${where}：added 必须是 YYYY-MM-DD`);
     }
+    if (!Array.isArray(b.tags)) throw new Error(`${where}：tags 必须是数组`);
+    if (b.tags.length < 1 || b.tags.length > 3) throw new Error(`${where}：tags 必须有 1～3 个`);
+    const used = new Set();
+    for (const tagId of b.tags) {
+      if (used.has(tagId)) throw new Error(`${where}：标签 ${tagId} 重复`);
+      if (!tagIds.has(tagId)) throw new Error(`${where}：引用了不存在的标签 ${tagId}`);
+      used.add(tagId);
+    }
   });
+}
+
+export function countByTag(books, tags) {
+  const counts = new Map(tags.map((tag) => [tag.id, 0]));
+  for (const book of books) {
+    for (const tagId of book.tags) counts.set(tagId, counts.get(tagId) + 1);
+  }
+  return tags.map(({ id, name }) => ({ id, name, count: counts.get(id) }));
 }
 
 // 先按状态（在读 → 想读 → 读完），同一状态里新加入的在前，最后按 id 保证顺序稳定

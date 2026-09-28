@@ -1,0 +1,30 @@
+[
+  {
+    "id": "architecture",
+    "name": "架构"
+  },
+  {
+    "id": "systems",
+    "name": "系统"
+  },
+  {
+    "id": "delivery",
+    "name": "交付"
+  },
+  {
+    "id": "engineering",
+    "name": "软件工程"
+  },
+  {
+    "id": "design",
+    "name": "设计"
+  },
+  {
+    "id": "fundamentals",
+    "name": "计算机基础"
+  },
+  {
+    "id": "teamwork",
+    "name": "团队协作"
+  }
+]
