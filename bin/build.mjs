@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// 生成静态站点：node bin/build.mjs [--data data/books.json] [--out dist]
+// 生成静态站点：node bin/build.mjs [--data data/books.json] [--tags data/tags.json] [--out dist]
 import { execFileSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
 import { build } from '../src/build.mjs';
@@ -7,6 +7,7 @@ import { build } from '../src/build.mjs';
 const { values } = parseArgs({
   options: {
     data: { type: 'string', default: 'data/books.json' },
+    tags: { type: 'string', default: 'data/tags.json' },
     out: { type: 'string', default: 'dist' },
   },
 });
@@ -22,7 +23,7 @@ function currentSha() {
 }
 
 try {
-  const files = await build({ dataFile: values.data, outDir: values.out, sha: currentSha() });
+  const files = await build({ dataFile: values.data, tagsFile: values.tags, outDir: values.out, sha: currentSha() });
   console.log(`已生成 ${values.out}/：${files.join('、')}`);
 } catch (err) {
   console.error(`构建失败：${err.message}`);

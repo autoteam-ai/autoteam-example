@@ -6,7 +6,11 @@
     "year": 2017,
     "status": "reading",
     "added": "2026-09-01",
-    "note": "复制、分区、事务一章一章啃，适合带着线上问题读。"
+    "note": "复制、分区、事务一章一章啃，适合带着线上问题读。",
+    "tags": [
+      "architecture",
+      "systems"
+    ]
   },
   {
     "id": "thinking-in-systems",
@@ -15,7 +19,11 @@
     "year": 2008,
     "status": "reading",
     "added": "2026-08-18",
-    "note": "存量、流量和反馈回路，看团队流程也用得上。"
+    "note": "存量、流量和反馈回路，看团队流程也用得上。",
+    "tags": [
+      "systems",
+      "teamwork"
+    ]
   },
   {
     "id": "accelerate",
@@ -24,7 +32,11 @@
     "year": 2018,
     "status": "want",
     "added": "2026-09-12",
-    "note": "四个交付指标的出处。"
+    "note": "四个交付指标的出处。",
+    "tags": [
+      "delivery",
+      "teamwork"
+    ]
   },
   {
     "id": "software-engineering-at-google",
@@ -33,7 +45,11 @@
     "year": 2020,
     "status": "want",
     "added": "2026-09-05",
-    "note": "代码评审和大规模测试两章先看。"
+    "note": "代码评审和大规模测试两章先看。",
+    "tags": [
+      "engineering",
+      "teamwork"
+    ]
   },
   {
     "id": "domain-driven-design",
@@ -42,7 +58,11 @@
     "year": 2003,
     "status": "want",
     "added": "2026-07-30",
-    "note": "战略设计部分比战术模式更值得读。"
+    "note": "战略设计部分比战术模式更值得读。",
+    "tags": [
+      "architecture",
+      "design"
+    ]
   },
   {
     "id": "computer-systems-a-programmers-perspective",
@@ -51,7 +71,11 @@
     "year": 2015,
     "status": "want",
     "added": "2026-07-02",
-    "note": "配合实验一起做，不要只看书。"
+    "note": "配合实验一起做，不要只看书。",
+    "tags": [
+      "systems",
+      "fundamentals"
+    ]
   },
   {
     "id": "a-philosophy-of-software-design",
@@ -60,7 +84,11 @@
     "year": 2018,
     "status": "done",
     "added": "2026-06-20",
-    "note": "深模块、浅模块，一句话就能用来评审接口。"
+    "note": "深模块、浅模块，一句话就能用来评审接口。",
+    "tags": [
+      "design",
+      "architecture"
+    ]
   },
   {
     "id": "the-pragmatic-programmer",
@@ -69,7 +97,11 @@
     "year": 2019,
     "status": "done",
     "added": "2026-05-11",
-    "note": "新人入职推荐第一本。"
+    "note": "新人入职推荐第一本。",
+    "tags": [
+      "engineering",
+      "teamwork"
+    ]
   },
   {
     "id": "refactoring",
@@ -78,7 +110,11 @@
     "year": 2018,
     "status": "done",
     "added": "2026-04-08",
-    "note": "坏味道目录当检查清单用。"
+    "note": "坏味道目录当检查清单用。",
+    "tags": [
+      "design",
+      "engineering"
+    ]
   },
   {
     "id": "the-phoenix-project",
@@ -87,7 +123,11 @@
     "year": 2013,
     "status": "done",
     "added": "2026-03-15",
-    "note": "小说形式讲运维和交付，一个周末读完。"
+    "note": "小说形式讲运维和交付，一个周末读完。",
+    "tags": [
+      "delivery",
+      "teamwork"
+    ]
   },
   {
     "id": "code-complete",
@@ -96,7 +136,11 @@
     "year": 2004,
     "status": "done",
     "added": "2026-02-02",
-    "note": "当工具书查，不必从头读。"
+    "note": "当工具书查，不必从头读。",
+    "tags": [
+      "engineering",
+      "fundamentals"
+    ]
   },
   {
     "id": "the-mythical-man-month",
@@ -105,6 +149,10 @@
     "year": 1975,
     "status": "done",
     "added": "2026-01-10",
-    "note": "“往延期的项目里加人只会更晚”，放到 agent 团队里依然成立。"
+    "note": "“往延期的项目里加人只会更晚”，放到 agent 团队里依然成立。",
+    "tags": [
+      "teamwork",
+      "engineering"
+    ]
   }
 ]

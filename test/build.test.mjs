@@ -10,28 +10,43 @@ const dir = await mkdtemp(join(tmpdir(), 'bookshelf-'));
 after(() => rm(dir, { recursive: true, force: true }));
 
 const books = [
-  { id: 'x', title: '<script>alert(1)</script>', author: "O'Hallaron & Co", year: 2015, status: 'want', added: '2026-01-02' },
-  { id: 'y', title: '正常的书', author: '作者', year: 2020, status: 'reading', added: '2026-01-01', note: '一句话' },
+  { id: 'x', title: '<script>alert(1)</script>', author: "O'Hallaron & Co", year: 2015, status: 'want', added: '2026-01-02', tags: ['design'] },
+  { id: 'y', title: '正常的书', author: '作者', year: 2020, status: 'reading', added: '2026-01-01', note: '一句话', tags: ['design', 'engineering'] },
 ];
+const tags = [{ id: 'engineering', name: '软件工程' }, { id: 'design', name: '设计' }, { id: 'unused', name: '未使用' }];
 
 async function buildFixture() {
   const dataFile = join(dir, 'books.json');
+  const tagsFile = join(dir, 'tags.json');
   await writeFile(dataFile, JSON.stringify(books));
+  await writeFile(tagsFile, JSON.stringify(tags));
   const outDir = join(dir, 'dist');
-  const files = await build({ dataFile, outDir, sha: 'abc1234def', builtAt: '2026-09-29T00:00:00.000Z' });
+  const files = await build({ dataFile, tagsFile, outDir, sha: 'abc1234def', builtAt: '2026-09-29T00:00:00.000Z' });
   return { outDir, files };
 }
 
 test('生成页面、接口和版本文件', async () => {
   const { outDir, files } = await buildFixture();
-  assert.deepEqual(files.sort(), ['.nojekyll', 'api/books.json', 'index.html', 'version.json']);
+  assert.deepEqual(files.sort(), ['.nojekyll', 'api/books.json', 'api/tags.json', 'index.html', 'version.json']);
 
   const api = JSON.parse(await readFile(join(outDir, 'api/books.json'), 'utf8'));
   assert.equal(api.count, 2);
   assert.deepEqual(api.books.map((b) => b.id), ['y', 'x']);
+  assert.deepEqual(api.books.map((b) => b.tags), [['design', 'engineering'], ['design']]);
+
+  const tagsApi = JSON.parse(await readFile(join(outDir, 'api/tags.json'), 'utf8'));
+  assert.deepEqual(tagsApi, { count: 3, tags: [
+    { id: 'engineering', name: '软件工程', count: 1 },
+    { id: 'design', name: '设计', count: 2 },
+    { id: 'unused', name: '未使用', count: 0 },
+  ] });
 
   const version = JSON.parse(await readFile(join(outDir, 'version.json'), 'utf8'));
   assert.deepEqual(version, { sha: 'abc1234def', built_at: '2026-09-29T00:00:00.000Z' });
+});
+
+test('缺少标签文件时构建失败', async () => {
+  await assert.rejects(build({ dataFile: join(dir, 'books.json'), tagsFile: join(dir, 'missing-tags.json'), outDir: join(dir, 'missing-dist') }), /ENOENT.*missing-tags\.json/);
 });
 
 test('页面里的数据都经过转义，页脚显示短 sha', async () => {
