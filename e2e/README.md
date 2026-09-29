@@ -6,7 +6,7 @@
 
 | 轮次 | 被测版本 | 结论 |
 |---|---|---|
-| [2026-09-29-bookshelf](runs/2026-09-29-bookshelf/) | autoteam `af7a544` | 从零接入到第一个需求上线 32 分钟；发现 1 个阻塞 bug（普通项目缺 `./autoteam`）和 17 条可改进的地方，见 [improvements.md](runs/2026-09-29-bookshelf/improvements.md) |
+| [2026-09-29-bookshelf](runs/2026-09-29-bookshelf/) | autoteam `af7a544` | 从零接入到第一个需求上线 32 分钟；发现 1 个阻塞 bug（普通项目缺 `./autoteam`）和 17 条可改进的地方，见 [improvements.md](runs/2026-09-29-bookshelf/improvements.md)；按 ECRS 整理的流程优化见 [ecrs.md](runs/2026-09-29-bookshelf/ecrs.md) |
 
 每轮目录里：
 
@@ -14,6 +14,7 @@
 |---|---|
 | `README.md` | 这一轮的完整过程，也是 autoteam 文档「官方示例」的草稿 |
 | `improvements.md` | 从用户侧记录的问题和改进建议，以及做得好的地方 |
+| `ecrs.md` | 用 ECRS（取消、合并、重排、简化）重新整理的流程优化方案和落地顺序 |
 | `timeline.md` | 带时间的事件记录，每行对应到截图或日志 |
 | `requirement.md` | 提给 Planner 的需求原文 |
 | `shots/` | 截图 |
