@@ -27,6 +27,8 @@ const STYLE = `
   .book h2 { margin: 0; font-size: 17px; }
   .meta { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
   .note { margin: 8px 0 0; }
+  .tags { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+  .tags a { margin-right: 12px; }
   .status { display: inline-block; margin-left: 8px; padding: 0 8px; border-radius: 999px; font-size: 12px;
     font-weight: 600; vertical-align: 2px; color: #fff; }
   .status-reading { background: var(--reading); }
@@ -36,7 +38,7 @@ const STYLE = `
   a { color: #0969da; }
 `;
 
-export function layout({ title, body, version }) {
+export function layout({ title, body, version, rootPath = '' }) {
   const short = version?.sha ? version.sha.slice(0, 7) : 'dev';
   return `<!doctype html>
 <html lang="zh-CN">
@@ -51,7 +53,7 @@ export function layout({ title, body, version }) {
 ${body}
 <footer>
   由 <a href="https://github.com/autoteam-ai/autoteam">autoteam</a> 示例团队维护 ·
-  版本 <code>${escapeHtml(short)}</code> · 数据接口 <a href="api/books.json">api/books.json</a>
+  版本 <code>${escapeHtml(short)}</code> · 数据接口 <a href="${rootPath}api/books.json">api/books.json</a>
 </footer>
 </main>
 </body>
@@ -59,23 +61,39 @@ ${body}
 `;
 }
 
-export function renderBook(book) {
+export function renderBook(book, { tagsById, rootPath = '' }) {
+  const tagLinks = book.tags.map((id) =>
+    `<a href="${rootPath}tags/${id}.html">${escapeHtml(tagsById.get(id))}</a>`).join('');
   return `<li class="book" id="${escapeHtml(book.id)}">
   <h2>${escapeHtml(book.title)}<span class="status status-${book.status}">${STATUS_LABELS[book.status]}</span></h2>
   <p class="meta">${escapeHtml(book.author)} · ${book.year}</p>
   ${book.note ? `<p class="note">${escapeHtml(book.note)}</p>` : ''}
+  <p class="tags">${tagLinks}</p>
 </li>`;
 }
 
 // books 已经排好序
-export function renderIndex(books, { version } = {}) {
+export function renderIndex(books, tags, { version } = {}) {
   const counts = countByStatus(books);
   const summary = STATUSES.map((s) => `<li>${STATUS_LABELS[s]} ${counts[s]}</li>`).join('');
+  const tagsById = new Map(tags.map(({ id, name }) => [id, name]));
+  const tagSummary = tags.map(({ id, name, count }) =>
+    `<li><a href="tags/${id}.html">${escapeHtml(name)} ${count}</a></li>`).join('');
   const body = `<h1>团队书架</h1>
 <p class="lead">团队在读、想读和读完的书，共 ${books.length} 本。</p>
 <ul class="summary">${summary}</ul>
+<ul class="summary">${tagSummary}</ul>
 <ul class="books">
-${books.map(renderBook).join('\n')}
+${books.map((book) => renderBook(book, { tagsById })).join('\n')}
 </ul>`;
   return layout({ title: '团队书架', body, version });
+}
+
+export function renderTag(tag, books, tagsById, { version } = {}) {
+  const body = `<h1>${escapeHtml(tag.name)}</h1>
+<p class="lead"><a href="../index.html">返回首页</a> · ${books.length} 本书</p>
+<ul class="books">
+${books.map((book) => renderBook(book, { tagsById, rootPath: '../' })).join('\n')}
+</ul>`;
+  return layout({ title: tag.name, body, version, rootPath: '../' });
 }
