@@ -110,8 +110,9 @@
 
 - 哪一步：`autoteam stop --apply` 之后。10 个 autopilot 都是 paused，但 `multica autopilot list` 的 NEXT_RUN 列仍显示「推进巡检 1 小时后」「每日摘要 46 分钟后」；到点之后变成「5 分钟前」「1 小时前」。
 - 已核实：暂停是生效的。推进巡检（10:00）、每日摘要（09:00）到点都没有运行，Planner 最后一次运行是 stop 之前的 08:09。
+- 也核实了 webhook：暂停期间合并 PR #18，deploy 通知照常发出、没有报错，但「部署结果」没有产生运行。也就是说**暂停期间的部署通知会被直接丢掉**，resume 之后也不会补跑，待上线的任务只能等巡检补查。
 - 为什么是问题：用户做完 stop，最关心的就是「还会不会跑、还会不会花额度」，这一列让人不敢确定，只能等到点再查运行记录。
-- 建议：`autoteam stop --apply` 结束时明确说「暂停的 autopilot 不会按计划运行，列表里的下次运行时间可以忽略」；`autoteam status` 列出每个 autopilot 的状态和最后一次运行时间，让人一眼确认停住了。（NEXT_RUN 的显示本身是 Multica 的问题，可以反馈给 Multica。）
+- 建议：`autoteam stop --apply` 结束时明确说「暂停的 autopilot 不会按计划运行，列表里的下次运行时间可以忽略；暂停期间的部署通知会丢失，resume 后巡检会补查待上线的任务」；`autoteam status` 列出每个 autopilot 的状态和最后一次运行时间，让人一眼确认停住了。（NEXT_RUN 的显示本身是 Multica 的问题，可以反馈给 Multica。）
 
 ### 17. [体验] `autoteam stop` 的预览把同一批 autopilot 列了两遍
 
