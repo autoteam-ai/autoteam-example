@@ -1,0 +1,8 @@
+  registry.yaml 的 runtime 字段写第一列（或者直接写 ID）
+RUNTIME                              STATUS   ID
+claude@devcontainer.local            online   5e28e2ae-d5c2-4506-b340-4109dc8a8094
+codex@devcontainer.local             online   11853e70-aaab-4d76-9e98-19a85a9ad852
+opencode@devcontainer.local          online   9b7a387d-6c9a-4daa-abda-767a530d971e
+claude@devcontainer-cloud            online   629d32cb-49ad-4371-915f-c05e99297169
+codex@devcontainer-cloud             online   19352720-574b-4d59-87a8-b5d12468236d
+opencode@devcontainer-cloud          online   56455b1d-5e01-4c66-ab22-b2c5ed17bab1

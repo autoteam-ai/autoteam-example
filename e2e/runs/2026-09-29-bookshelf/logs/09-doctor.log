@@ -1,0 +1,53 @@
+
+== 本地文件 ==
+  ✅ 工作流文件齐全
+  ✅ .autoteam/.lock.json 版本 0.1.0，与当前 autoteam 一致
+  ✅ Makefile 有 check / dev / deploy
+  ✅ CODEOWNERS 保护 .github/、.autoteam/、Makefile、.jscpd.json
+  ✅ gate.yml 调用 make check
+  ✅ registry.yaml：6 个 agent，角色齐全
+
+== GitHub autoteam-ai/autoteam-example ==
+  ✅ 允许自动合并
+  ✅ 只保留 squash 合并
+  ✅ 合并后自动删分支
+  ✅ 规则集生效：必须走 PR、1 个审批、必需检查 check
+  ✅ 合并队列已启用
+  ✅ secret MULTICA_DEPLOY_HOOK 已设置
+  ✅ CODEOWNERS 没有错误
+  ✅ impl App autoteam-implementer（5011663）已装在 autoteam-ai
+  ✅ impl 的私钥能铸出 token（本机可以用这个身份操作 GitHub）
+  ✅ review App autoteam-reviewer（5011589）已装在 autoteam-ai
+  ✅ review 的私钥能铸出 token（本机可以用这个身份操作 GitHub）
+  ✅ planner App autoteam-planner（5011610）已装在 autoteam-ai
+  ✅ planner 的私钥能铸出 token（本机可以用这个身份操作 GitHub）
+  ✅ 最近一次 gate 通过（autoteam-setup）
+
+== Multica ==
+  工作区 autoteam（profile 默认）
+  ✅ 自定义状态齐全：shipping
+  ✅ agent planner（planner）指令一致，runtime 在线
+  ✅ agent impl-claude（implementer）指令一致，runtime 在线
+  ✅ agent impl-codex（implementer）指令一致，runtime 在线
+  ✅ agent rev-claude（reviewer）指令一致，runtime 在线
+  ✅ agent rev-codex（reviewer）指令一致，runtime 在线
+  ✅ agent auditor（auditor）指令一致，runtime 在线
+  agent planner 的 runtime claude@devcontainer-cloud 不在本机：planner 使用 planner 身份，planner 的私钥要到那台机器上检查（放 AUTOTEAM_KEYS_DIR，在那里跑 autoteam doctor）
+  agent impl-claude 的 runtime claude@devcontainer-cloud 不在本机：implementer 使用 implementer 身份，implementer 的私钥要到那台机器上检查（放 AUTOTEAM_KEYS_DIR，在那里跑 autoteam doctor）
+  agent impl-codex 的 runtime codex@devcontainer-cloud 不在本机：implementer 使用 implementer 身份，implementer 的私钥要到那台机器上检查（放 AUTOTEAM_KEYS_DIR，在那里跑 autoteam doctor）
+  agent rev-claude 的 runtime claude@devcontainer-cloud 不在本机：reviewer 使用 reviewer 身份，reviewer 的私钥要到那台机器上检查（放 AUTOTEAM_KEYS_DIR，在那里跑 autoteam doctor）
+  agent rev-codex 的 runtime codex@devcontainer-cloud 不在本机：reviewer 使用 reviewer 身份，reviewer 的私钥要到那台机器上检查（放 AUTOTEAM_KEYS_DIR，在那里跑 autoteam doctor）
+  agent auditor 的 runtime codex@devcontainer-cloud 不在本机：auditor 使用 planner 身份，planner 的私钥要到那台机器上检查（放 AUTOTEAM_KEYS_DIR，在那里跑 autoteam doctor）
+  ✅ 项目 autoteam-example 存在
+  ✅ autopilot「整合审计」已启用
+  ✅ autopilot「每日摘要」已启用
+  ✅ autopilot「部署结果」已启用
+  ✅ autopilot「前沿扫描」已启用
+  ✅ autopilot「老代码巡检」已启用
+  ✅ autopilot「推进巡检」已启用
+  ✅ autopilot「路线图对账」已启用
+  ✅ autopilot「规则复盘」已启用
+  ✅ autopilot「agent 成绩单」已启用
+  ✅ autopilot「规格对账」已启用
+
+全部通过

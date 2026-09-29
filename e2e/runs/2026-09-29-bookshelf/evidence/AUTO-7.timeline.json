@@ -1,0 +1,11 @@
+[
+  {
+    "action": "created",
+    "actor_id": "2d4b6b6a-064e-434f-a29d-aa13120b91aa",
+    "actor_type": "agent",
+    "created_at": "2026-09-29T00:09:41Z",
+    "details": {},
+    "id": "01a0ea7e-ed58-75aa-b371-0900ca70897f",
+    "type": "activity"
+  }
+]
