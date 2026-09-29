@@ -32,3 +32,4 @@
 | 08:07 | 手动触发「整合审计」：Auditor 出基线报告（AUTO-6）；Planner 拆出 AUTO-7 放进待审核，不批准 | shots/60-auto6-audit-report.png、61-auto7-backlog.png |
 | 08:12 | `autoteam stop --apply`：10 个 autopilot 全部暂停，无运行被取消 | logs/13-stop-apply.log、shots/63-autopilots-paused.png |
 | 10:05 | 核实：推进巡检（10:00）、每日摘要（09:00）到点都没有运行，暂停生效（改进 #16） | — |
+| 14:42 | PR #18 把验证工具和本轮证据放进 `e2e/`；合并后 deploy 通知发出，暂停中的「部署结果」没有运行（改进 #16） | — |
