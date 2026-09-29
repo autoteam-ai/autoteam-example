@@ -1,0 +1,7 @@
+node --test test/*.test.mjs
+TAP version 13
+# Subtest: 仓库里的书单能通过校验
+已生成 dist/：index.html、api/books.json、version.json、.nojekyll
+预览：http://localhost:4173/（停止：kill $(cat .dev-server.pid)）
+已生成 dist/：index.html、api/books.json、version.json、.nojekyll
+预览：http://localhost:4173/（停止：kill $(cat .dev-server.pid)）

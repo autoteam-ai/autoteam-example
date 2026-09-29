@@ -1,0 +1,89 @@
+{
+  "additions": 198,
+  "author": {
+    "is_bot": true,
+    "login": "app/autoteam-implementer"
+  },
+  "comments": [],
+  "createdAt": "2026-09-28T23:50:25Z",
+  "deletions": 34,
+  "files": [
+    {
+      "path": "bin/build.mjs",
+      "additions": 3,
+      "deletions": 2,
+      "changeType": "MODIFIED"
+    },
+    {
+      "path": "data/books.json",
+      "additions": 60,
+      "deletions": 12,
+      "changeType": "MODIFIED"
+    },
+    {
+      "path": "data/tags.json",
+      "additions": 30,
+      "deletions": 0,
+      "changeType": "ADDED"
+    },
+    {
+      "path": "src/books.mjs",
+      "additions": 40,
+      "deletions": 3,
+      "changeType": "MODIFIED"
+    },
+    {
+      "path": "src/build.mjs",
+      "additions": 5,
+      "deletions": 3,
+      "changeType": "MODIFIED"
+    },
+    {
+      "path": "test/books.test.mjs",
+      "additions": 41,
+      "deletions": 10,
+      "changeType": "MODIFIED"
+    },
+    {
+      "path": "test/build.test.mjs",
+      "additions": 19,
+      "deletions": 4,
+      "changeType": "MODIFIED"
+    }
+  ],
+  "mergeCommit": {
+    "oid": "da3f350c9d36ef39fa28d3ed1f3230efe8dee316"
+  },
+  "mergedAt": "2026-09-28T23:53:31Z",
+  "number": 16,
+  "reviews": [
+    {
+      "id": "PRR_kwDOUhiuz88AAAABPqY0eQ",
+      "author": {
+        "login": "autoteam-reviewer"
+      },
+      "authorAssociation": "NONE",
+      "body": "评审通过，无阻塞项。\n\n- 校验：标签缺字段、id 格式不对、id 重复，书的 tags 不是数组、为空、超过 3 个、重复、引用不存在的标签，都有对应测试，错误信息里带书或标签的位置和 id。\n- 构建：缺少 `data/tags.json` 时构建失败，有测试覆盖；`api/tags.json` 按定义顺序输出，也列出 0 本书的标签。\n- 本地 `make check`：12 个测试全部通过。\n\n建议（不阻塞）：\n- `src/books.mjs:28` 和 `src/books.mjs:44` 写了两份一样的 id 正则，可以提成一个常量共用，免得以后改规则时漏掉一处。\n- `src/books.mjs:37` 的 `validateBooks(books, tags)` 不传 `tags` 时会抛 TypeError，报错看不出原因。现在所有调用方都传了，第 2 批如果新增调用方要记得传。\n",
+      "submittedAt": "2026-09-28T23:51:53Z",
+      "includesCreatedEdit": false,
+      "reactionGroups": [],
+      "state": "APPROVED",
+      "commit": {
+        "oid": "608172d0a65442998451fe310b236de36c3f2d01"
+      }
+    }
+  ],
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-09-28T23:50:39Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/autoteam-ai/autoteam-example/actions/runs/36500083498/job/109188594800",
+      "name": "check",
+      "startedAt": "2026-09-28T23:50:30Z",
+      "status": "COMPLETED",
+      "workflowName": "gate"
+    }
+  ],
+  "title": "AUTO-3 标签数据、构建校验与 api/tags.json"
+}

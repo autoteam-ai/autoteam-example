@@ -9,3 +9,6 @@
 
 # 不在 autoteam 受管块里：./autoteam 入口决定 agent 实际跑哪一版 autoteam，也只能由人批准修改
 /autoteam        @songhuangcn
+# e2e/ 是人用来验证 autoteam 的工具和证据，不是业务代码：只能由人修改。
+# 也因为它不计入 PR 行数上限（autoteam.conf），不保护的话就成了绕过上限的口子
+/e2e/            @songhuangcn

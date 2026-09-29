@@ -1,0 +1,24 @@
+  type: 'test'
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 8
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 40.944596
+已生成 /tmp/tmp.wXIRwyZ2FN/dist/：index.html、api/books.json、version.json、.nojekyll
+== dev 1
+已生成 dist/：index.html、api/books.json、version.json、.nojekyll
+curl: (7) Failed to connect to localhost port 4173 after 0 ms: Couldn't connect to server
+预览：http://localhost:4173/（停止：kill $(cat .dev-server.pid)）
+== dev 2 (重复执行)
+已生成 dist/：index.html、api/books.json、version.json、.nojekyll
+curl: (7) Failed to connect to localhost port 4173 after 0 ms: Couldn't connect to server
+预览：http://localhost:4173/（停止：kill $(cat .dev-server.pid)）
+{
+  "sha": "f95c63cc57ebf2c932e15fb8be09a1a83af2147b",
+  "built_at": "2026-09-28T23:16:17.060Z"
+}

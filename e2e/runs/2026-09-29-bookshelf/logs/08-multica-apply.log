@@ -1,0 +1,72 @@
+
+== 连接 Multica ==
+  multica：/usr/local/bin/multica（multica 0.5.0 (commit: 2df765a3c, built: 2026-09-18T10:09:36Z)）
+  profile：默认，工作区：autoteam（任务前缀 AUTO）
+
+== 自定义状态 ==
+  → 新建状态 shipping（待上线，类别 started）
+  ✅ 已新建状态 shipping
+
+== agent ==
+  → 新建 agent planner（planner，runtime 629d32cb，模型 default，并发 5）
+  ✅ 已新建 agent planner（2d4b6b6a）
+  → 新建 agent impl-claude（implementer，runtime 629d32cb，模型 default，并发 3）
+  ✅ 已新建 agent impl-claude（3e5b22ba）
+  → 新建 agent impl-codex（implementer，runtime 19352720，模型 gpt-6-sol，并发 3）
+  ✅ 已新建 agent impl-codex（9885e650）
+  → 新建 agent rev-claude（reviewer，runtime 629d32cb，模型 default，并发 3）
+  ✅ 已新建 agent rev-claude（8b739230）
+  → 新建 agent rev-codex（reviewer，runtime 19352720，模型 gpt-6-sol，并发 3）
+  ✅ 已新建 agent rev-codex（f2a0dee6）
+  → 新建 agent auditor（auditor，runtime 19352720，模型 gpt-6-sol，并发 1）
+  ✅ 已新建 agent auditor（8e824cd9）
+
+== 项目 ==
+  → 新建项目 autoteam-example（挂上仓库 https://github.com/autoteam-ai/autoteam-example）
+  ✅ 已新建项目 autoteam-example（939758c2）
+
+== autopilot ==
+  → 新建 autopilot「整合审计」（auditor，create_issue，0 9 * * 1）
+  ✅ 已新建 autopilot「整合审计」
+  → 给「整合审计」加定时触发 0 9 * * 1（Asia/Shanghai）
+  ✅ 已加定时触发 0 9 * * 1
+  → 新建 autopilot「每日摘要」（planner，create_issue，0 9 * * *）
+  ✅ 已新建 autopilot「每日摘要」
+  → 给「每日摘要」加定时触发 0 9 * * *（Asia/Shanghai）
+  ✅ 已加定时触发 0 9 * * *
+  → 新建 autopilot「部署结果」（planner，run_only，webhook）
+  ✅ 已新建 autopilot「部署结果」
+  → 给「部署结果」加 webhook 触发，地址写入 GitHub secret MULTICA_DEPLOY_HOOK
+  ✅ webhook 地址已写入 GitHub secret MULTICA_DEPLOY_HOOK（地址含凭据，不在这里显示）
+  → 新建 autopilot「前沿扫描」（auditor，create_issue，0 11 * * 1）
+  ✅ 已新建 autopilot「前沿扫描」
+  → 给「前沿扫描」加定时触发 0 11 * * 1（Asia/Shanghai）
+  ✅ 已加定时触发 0 11 * * 1
+  → 新建 autopilot「老代码巡检」（auditor，create_issue，0 3 1 * *）
+  ✅ 已新建 autopilot「老代码巡检」
+  → 给「老代码巡检」加定时触发 0 3 1 * *（Asia/Shanghai）
+  ✅ 已加定时触发 0 3 1 * *
+  → 新建 autopilot「推进巡检」（planner，run_only，0 */2 * * *）
+  ✅ 已新建 autopilot「推进巡检」
+  → 给「推进巡检」加定时触发 0 */2 * * *（Asia/Shanghai）
+  ✅ 已加定时触发 0 */2 * * *
+  → 新建 autopilot「路线图对账」（planner，run_only，0 10 * * 1）
+  ✅ 已新建 autopilot「路线图对账」
+  → 给「路线图对账」加定时触发 0 10 * * 1（Asia/Shanghai）
+  ✅ 已加定时触发 0 10 * * 1
+  → 新建 autopilot「规则复盘」（planner，create_issue，0 12 * * 1）
+  ✅ 已新建 autopilot「规则复盘」
+  → 给「规则复盘」加定时触发 0 12 * * 1（Asia/Shanghai）
+  ✅ 已加定时触发 0 12 * * 1
+  → 新建 autopilot「agent 成绩单」（auditor，create_issue，0 8 * * 1）
+  ✅ 已新建 autopilot「agent 成绩单」
+  → 给「agent 成绩单」加定时触发 0 8 * * 1（Asia/Shanghai）
+  ✅ 已加定时触发 0 8 * * 1
+  → 新建 autopilot「规格对账」（auditor，create_issue，0 9 * * 5）
+  ✅ 已新建 autopilot「规格对账」
+  → 给「规格对账」加定时触发 0 9 * * 5（Asia/Shanghai）
+  ✅ 已加定时触发 0 9 * * 5
+
+== 需要你在 Multica 界面里做的事 ==
+  GitHub 集成（可选）：Settings → GitHub 连接仓库后，任务卡片上能看到关联 PR 和 CI 状态
+  看板上确认自定义状态：待上线

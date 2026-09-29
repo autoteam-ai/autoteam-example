@@ -1,0 +1,36 @@
+
+== 连接 Multica ==
+  multica：/usr/local/bin/multica（multica 0.5.0 (commit: 2df765a3c, built: 2026-09-18T10:09:36Z)）
+  profile：默认，工作区：autoteam（任务前缀 AUTO）
+
+== 自定义状态 ==
+  [预览] 新建状态 shipping（待上线，类别 started）
+
+== agent ==
+  [预览] 新建 agent planner（planner，runtime 629d32cb，模型 default，并发 5）
+  [预览] 新建 agent impl-claude（implementer，runtime 629d32cb，模型 default，并发 3）
+  [预览] 新建 agent impl-codex（implementer，runtime 19352720，模型 gpt-6-sol，并发 3）
+  [预览] 新建 agent rev-claude（reviewer，runtime 629d32cb，模型 default，并发 3）
+  [预览] 新建 agent rev-codex（reviewer，runtime 19352720，模型 gpt-6-sol，并发 3）
+  [预览] 新建 agent auditor（auditor，runtime 19352720，模型 gpt-6-sol，并发 1）
+
+== 项目 ==
+  [预览] 新建项目 autoteam-example（挂上仓库 https://github.com/autoteam-ai/autoteam-example）
+
+== autopilot ==
+  [预览] 新建 autopilot「整合审计」（auditor，create_issue，0 9 * * 1）
+  [预览] 新建 autopilot「每日摘要」（planner，create_issue，0 9 * * *）
+  [预览] 新建 autopilot「部署结果」（planner，run_only，webhook）
+  [预览] 新建 autopilot「前沿扫描」（auditor，create_issue，0 11 * * 1）
+  [预览] 新建 autopilot「老代码巡检」（auditor，create_issue，0 3 1 * *）
+  [预览] 新建 autopilot「推进巡检」（planner，run_only，0 */2 * * *）
+  [预览] 新建 autopilot「路线图对账」（planner，run_only，0 10 * * 1）
+  [预览] 新建 autopilot「规则复盘」（planner，create_issue，0 12 * * 1）
+  [预览] 新建 autopilot「agent 成绩单」（auditor，create_issue，0 8 * * 1）
+  [预览] 新建 autopilot「规格对账」（auditor，create_issue，0 9 * * 5）
+
+== 需要你在 Multica 界面里做的事 ==
+  GitHub 集成（可选）：Settings → GitHub 连接仓库后，任务卡片上能看到关联 PR 和 CI 状态
+  看板上确认自定义状态：待上线
+
+以上是预览，没有做任何改动。确认后加 --apply 执行。

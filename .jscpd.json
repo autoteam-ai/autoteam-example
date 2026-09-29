@@ -6,6 +6,7 @@
     "**/.git/**",
     "**/.github/**",
     "**/.autoteam/**",
+    "**/e2e/**",
     "**/*.md",
     "**/node_modules/**",
     "**/vendor/**",

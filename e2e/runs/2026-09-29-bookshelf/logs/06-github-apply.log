@@ -1,0 +1,38 @@
+
+== 仓库 autoteam-ai/autoteam-example ==
+  所有者类型 Organization，可见性 public
+  ✅ 规则集、自动合并、合并队列都可用（组织仓库）
+
+== 仓库设置 ==
+  → PATCH repos/autoteam-ai/autoteam-example {"allow_auto_merge":true,"delete_branch_on_merge":true,"allow_merge_commit":false,"allow_rebase_merge":false}
+  ✅ 仓库设置已更新
+
+== 规则集 autoteam ==
+  → POST repos/autoteam-ai/autoteam-example/rulesets（deletion、non_fast_forward、pull_request、required_status_checks、merge_queue）
+  ✅ 规则集已写入（id 24147021）
+
+== 部署 environment ==
+  ✅ environment production 已存在
+
+== GitHub App ==
+  ✅ impl App autoteam-implementer（5011663）已安装
+  ⚠️  impl App 装在了组织的全部仓库上：改成只选 autoteam-ai/autoteam-example，缩小私钥泄露时的影响面
+  ✅ review App autoteam-reviewer（5011589）已安装
+  ⚠️  review App 装在了组织的全部仓库上：改成只选 autoteam-ai/autoteam-example，缩小私钥泄露时的影响面
+  ✅ planner App autoteam-planner（5011610）已安装
+  ⚠️  planner App 装在了组织的全部仓库上：改成只选 autoteam-ai/autoteam-example，缩小私钥泄露时的影响面
+  
+  三个 App 各自的权限（都只装本仓库，私钥放各自机器的 AUTOTEAM_KEYS_DIR 或仓库的 .autoteam/local/）：
+    impl     Contents 读写、Pull requests 读写、Workflows 读写   推分支、开 PR、开自动合并；
+                                                没有 Workflows 连含工作流改动的 PR 都提不了
+    review   Contents 读写、Pull requests 读写   提交评审。写权限不能省：App 的批准
+                                                只有在它有写权限时才计入必需审批数
+    planner  Actions 读写、Contents 只读、Pull requests 只读   查 PR、触发回滚
+     App 由人在 GitHub 上创建和安装，autoteam 不会也不能代做；建完把 App ID 填进 autoteam.conf
+
+== 其他检查 ==
+  ✅ CODEOWNERS 没有错误
+  secret MULTICA_DEPLOY_HOOK 还没设置，autoteam multica --apply 会创建部署 webhook 并写入
+
+== 结论 ==
+  ✅ 平台闸门完整：规则集 + 自动合并 + 合并队列，所有 agent 都绕不过

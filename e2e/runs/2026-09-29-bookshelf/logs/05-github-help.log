@@ -1,0 +1,17 @@
+用法：autoteam github [选项]
+
+按 .autoteam/autoteam.conf 配置 GitHub 仓库。默认只预览，加 --apply 才执行。
+
+  --apply                  执行改动
+  --trial                  单身份试用模式：规则集不要求审批（写代码和评审用同一个身份时用）
+  --apps impl=<App ID>,review=<App ID>,planner=<App ID>
+                           三个角色各自的 GitHub App ID（也可以写在 autoteam.conf 的 AUTOTEAM_*_APP_ID）
+  --repo <owner/name>      覆盖 autoteam.conf 里的仓库
+
+会做的事：
+  1. 仓库设置：允许自动合并、合并后删分支、只保留 squash 合并
+  2. 规则集 autoteam（默认分支）：禁止删除和强推、必须走 PR、1 个审批、
+     新提交作废旧审批、规则文件要 Code Owner 审批、最后一次推送要别人批准、
+     必需检查 check（只认 GitHub Actions 上报）、组织仓库再加合并队列
+  3. 部署 environment（autoteam.conf 的 AUTOTEAM_DEPLOY_ENVIRONMENT）
+  4. 核对三个 GitHub App 装好没有、权限对不对（App 只能由人创建和安装，autoteam 不代做）

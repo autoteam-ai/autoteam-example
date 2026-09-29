@@ -1,0 +1,9 @@
+{
+  "name": "bookshelf-e2e",
+  "private": true,
+  "type": "module",
+  "description": "autoteam 验证用的截图工具（Playwright 只在 e2e/ 里用，项目本身仍然零依赖）",
+  "devDependencies": {
+    "playwright": "^1.55.0"
+  }
+}

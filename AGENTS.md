@@ -10,6 +10,7 @@
 - 书单数据有错时要让构建失败（`validateBooks` 抛错），不要静默跳过。
 - 线上是 GitHub Pages：<https://autoteam-ai.github.io/autoteam-example/>。合并到 main 后 `make deploy` 把站点推到 `gh-pages` 分支，等线上 `version.json` 变成这次的提交才算部署成功。`gh-pages` 只由部署写，不要手工改，也不要基于它开 PR；`dist/` 是构建产物，不入库。
 - 验收看线上，不要用工作目录里的构建代替。Pages 有 10 分钟 CDN 缓存，每个请求都带查询参数：先 `curl -fsS "https://autoteam-ai.github.io/autoteam-example/version.json?t=$(date +%s)"` 确认 sha 是要验收的提交，再用同样的方式查页面和 `api/*.json`。
+- `e2e/` 是人用来验证 autoteam 的工具和证据（截图、日志、Playwright），不是业务代码，也不受上面这些规则约束：不要改它，审计和重复代码检查也不算它。Playwright 是 `e2e/` 自己的依赖，项目本身仍然零依赖。
 
 <!-- >>> autoteam >>> -->
 ## AI 团队工作流
