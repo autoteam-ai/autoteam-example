@@ -1,32 +1,43 @@
 #!/usr/bin/env bash
-# autoteam 命令入口。角色指令里一律写 `bash ./autoteam <命令>`（开工先检查暂停、部署后同步指令
-# 都靠它），所以仓库根目录必须有这个文件。
-#
-# 用哪一版 autoteam：
-#   1. 本机用 `npx skills add autoteam-ai/autoteam --skill autoteam` 装过，就用 .claude/skills/autoteam
-#   2. 否则用下面固定的提交（和本仓库接入时的版本一致），首次运行下载到 ~/.cache/autoteam/cli/<提交>。
-#      agent 每次都是新 checkout，没有本机 skill，走的是这一条
-# 升级 autoteam（npx skills update + autoteam upgrade）时，把 AUTOTEAM_REF 一起改成新版本的提交。
+# 根目录入口：只定位固定版本的 autoteam CLI，然后交给它执行。
 set -euo pipefail
 
-AUTOTEAM_REF=${AUTOTEAM_REF:-af7a544960b6d18bd0cbb518df1442c3f7820476}
-
+# 由当前 autoteam 包的构建提交渲染，不使用会移动的 main 分支。
+AUTOTEAM_REF=f1dc4b57bc3a24628263a99f83d0a5a7778497dc
 root=$(cd "$(dirname "$0")" && pwd)
-if [ -f "$root/.claude/skills/autoteam/bin/autoteam" ]; then
-  exec bash "$root/.claude/skills/autoteam/bin/autoteam" "$@"
-fi
 
-cache=${XDG_CACHE_HOME:-$HOME/.cache}/autoteam/cli/$AUTOTEAM_REF
-if [ ! -f "$cache/skills/autoteam/bin/autoteam" ]; then
-  mkdir -p "${cache%/*}"
-  # 先解压到临时目录再改名：几个 agent 同时第一次运行时，谁也看不到解压了一半的目录
-  tmp=$(mktemp -d "$cache.XXXXXX")
-  if ! curl -fsSL "https://codeload.github.com/autoteam-ai/autoteam/tar.gz/$AUTOTEAM_REF" | tar -xz -C "$tmp" --strip-components=1; then
+for skill in \
+  "$root/.claude/skills/autoteam" \
+  "$root/.agents/skills/autoteam" \
+  "$root/.codex/skills/autoteam" \
+  "$HOME/.claude/skills/autoteam" \
+  "$HOME/.agents/skills/autoteam" \
+  "$HOME/.codex/skills/autoteam"; do
+  if [ -f "$skill/bin/autoteam" ]; then
+    exec bash "$skill/bin/autoteam" "$@"
+  fi
+done
+
+cache_root=${XDG_CACHE_HOME:-$HOME/.cache}/autoteam/cli
+cache=$cache_root/$AUTOTEAM_REF
+cli=$cache/skills/autoteam/bin/autoteam
+if [ ! -f "$cli" ]; then
+  mkdir -p "$cache_root"
+  tmp=$(mktemp -d "$cache_root/.download.XXXXXX")
+  if ! curl -fsSL "https://codeload.github.com/autoteam-ai/autoteam/tar.gz/$AUTOTEAM_REF" |
+    tar -xz -C "$tmp" --strip-components=1; then
     rm -rf "$tmp"
-    echo "下载 autoteam $AUTOTEAM_REF 失败" >&2
+    echo "下载 autoteam $AUTOTEAM_REF 失败；检查网络后重试 bash ./autoteam status --check" >&2
     exit 1
   fi
-  # 别人先解压好了就用别人的（目标已存在时 mv 会把临时目录挪进去，而不是报错）
-  if [ -e "$cache" ]; then rm -rf "$tmp"; else mv "$tmp" "$cache"; fi
+  if [ ! -f "$tmp/skills/autoteam/bin/autoteam" ]; then
+    rm -rf "$tmp"
+    echo "下载的 autoteam $AUTOTEAM_REF 缺少 CLI" >&2
+    exit 1
+  fi
+  # symlink 的建立是原子的；并发下载者只有一个赢，其他清理自己的完整解压目录。
+  if ! ln -s "$tmp" "$cache" 2>/dev/null; then
+    rm -rf "$tmp"
+  fi
 fi
-exec bash "$cache/skills/autoteam/bin/autoteam" "$@"
+exec bash "$cli" "$@"
