@@ -1,5 +1,5 @@
 // 页面渲染：纯函数，输入数据，输出 HTML 字符串。
-import { STATUSES, STATUS_LABELS, countByStatus } from './books.mjs';
+import { STATUSES, STATUS_LABELS, countByStatus, parseAuthors } from './books.mjs';
 
 // 所有来自数据的文本都要经过它，书名、作者里可能有 < & ' 这类字符
 export function escapeHtml(value) {
@@ -64,9 +64,11 @@ ${body}
 export function renderBook(book, { tagsById, rootPath = '' }) {
   const tagLinks = book.tags.map((id) =>
     `<a href="${rootPath}tags/${id}.html">${escapeHtml(tagsById.get(id))}</a>`).join('');
+  const authorLinks = parseAuthors(book.author).map(({ id, name }) =>
+    `<a href="${rootPath}authors/${id}.html">${escapeHtml(name)}</a>`).join(', ');
   return `<li class="book" id="${escapeHtml(book.id)}">
   <h2>${escapeHtml(book.title)}<span class="status status-${book.status}">${STATUS_LABELS[book.status]}</span></h2>
-  <p class="meta">${escapeHtml(book.author)} · ${book.year}</p>
+  <p class="meta">${authorLinks} · ${book.year}</p>
   ${book.note ? `<p class="note">${escapeHtml(book.note)}</p>` : ''}
   <p class="tags">${tagLinks}</p>
 </li>`;
@@ -96,4 +98,13 @@ export function renderTag(tag, books, tagsById, { version } = {}) {
 ${books.map((book) => renderBook(book, { tagsById, rootPath: '../' })).join('\n')}
 </ul>`;
   return layout({ title: tag.name, body, version, rootPath: '../' });
+}
+
+export function renderAuthor(author, books, tagsById, { version } = {}) {
+  const body = `<h1>${escapeHtml(author.name)}</h1>
+<p class="lead"><a href="../index.html">返回首页</a> · ${books.length} 本书</p>
+<ul class="books">
+${books.map((book) => renderBook(book, { tagsById, rootPath: '../' })).join('\n')}
+</ul>`;
+  return layout({ title: author.name, body, version, rootPath: '../' });
 }

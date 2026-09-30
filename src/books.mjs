@@ -31,11 +31,27 @@ export function validateTags(tags) {
   });
 }
 
+// 作者名生成 id：小写，标点去掉，空白变连字符，例如 David R. O'Hallaron → david-r-ohallaron
+export function authorId(name) {
+  return name.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-');
+}
+
+// author 按英文逗号拆成多位作者，返回 [{id, name}]；空作者、空 id 直接报错
+export function parseAuthors(author) {
+  return author.split(',').map((part) => {
+    const name = part.trim();
+    const id = authorId(name);
+    if (name === '' || id === '') throw new Error(`作者名无效：${JSON.stringify(part)}`);
+    return { id, name };
+  });
+}
+
 // 数据有错就在构建时失败，而不是生成一个缺字段的页面
 export function validateBooks(books, tags) {
   if (!Array.isArray(books)) throw new Error('书单必须是数组');
   const tagIds = new Set(tags.map((tag) => tag.id));
   const ids = new Set();
+  const authorNames = new Map();
   books.forEach((b, i) => {
     const where = `第 ${i + 1} 本书（${b?.id ?? '没有 id'}）`;
     for (const key of ['id', 'title', 'author']) {
@@ -49,6 +65,19 @@ export function validateBooks(books, tags) {
     // 日期一律是 YYYY-MM-DD 字符串，按字符串比较，不用 Date 解析（时区会让边界差一天）
     if (typeof b.added !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(b.added)) {
       throw new Error(`${where}：added 必须是 YYYY-MM-DD`);
+    }
+    try {
+      const seen = new Set();
+      for (const { id, name } of parseAuthors(b.author)) {
+        if (seen.has(id)) throw new Error(`作者 ${name} 重复`);
+        seen.add(id);
+        if (authorNames.has(id) && authorNames.get(id) !== name) {
+          throw new Error(`作者 ${name} 与 ${authorNames.get(id)} 生成了同一个 id ${id}`);
+        }
+        authorNames.set(id, name);
+      }
+    } catch (err) {
+      throw new Error(`${where}：${err.message}`);
     }
     if (!Array.isArray(b.tags)) throw new Error(`${where}：tags 必须是数组`);
     if (b.tags.length < 1 || b.tags.length > 3) throw new Error(`${where}：tags 必须有 1～3 个`);
@@ -67,6 +96,17 @@ export function countByTag(books, tags) {
     for (const tagId of book.tags) counts.set(tagId, counts.get(tagId) + 1);
   }
   return tags.map(({ id, name }) => ({ id, name, count: counts.get(id) }));
+}
+
+// 每位作者参与的书数，从多到少，书数相同按名字排序
+export function countByAuthor(books) {
+  const authors = new Map();
+  for (const book of books) {
+    for (const { id, name } of parseAuthors(book.author)) {
+      authors.set(id, { id, name, count: (authors.get(id)?.count ?? 0) + 1 });
+    }
+  }
+  return [...authors.values()].sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
 }
 
 // 先按状态（在读 → 想读 → 读完），同一状态里新加入的在前，最后按 id 保证顺序稳定
