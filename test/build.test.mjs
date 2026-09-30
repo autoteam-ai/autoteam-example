@@ -11,7 +11,7 @@ after(() => rm(dir, { recursive: true, force: true }));
 
 const books = [
   { id: 'x', title: '<script>alert(1)</script>', author: "O'Hallaron & Co", year: 2015, status: 'want', added: '2026-01-02', tags: ['design'] },
-  { id: 'y', title: '正常的书', author: '作者', year: 2020, status: 'reading', added: '2026-01-01', note: '一句话', tags: ['design', 'engineering'] },
+  { id: 'y', title: '正常的书', author: 'Zed Author, Amy Lee', year: 2020, status: 'reading', added: '2026-01-01', note: '一句话', tags: ['design', 'engineering'] },
 ];
 const tags = [{ id: 'engineering', name: '软件工程 & <实践>' }, { id: 'design', name: '设计' }, { id: 'unused', name: '未使用' }];
 
@@ -27,7 +27,7 @@ async function buildFixture() {
 
 test('生成页面、接口和版本文件', async () => {
   const { outDir, files } = await buildFixture();
-  assert.deepEqual(files.sort(), ['.nojekyll', 'api/books.json', 'api/tags.json', 'index.html', 'tags/design.html', 'tags/engineering.html', 'tags/unused.html', 'version.json']);
+  assert.deepEqual(files.sort(), ['.nojekyll', 'api/authors.json', 'api/books.json', 'api/tags.json', 'authors/amy-lee.html', 'authors/ohallaron-co.html', 'authors/zed-author.html', 'index.html', 'tags/design.html', 'tags/engineering.html', 'tags/unused.html', 'version.json']);
 
   const api = JSON.parse(await readFile(join(outDir, 'api/books.json'), 'utf8'));
   assert.equal(api.count, 2);
@@ -108,4 +108,34 @@ test('首页和标签页链接都用相对路径，站内链接解析到生成�
 
 test('escapeHtml 转义五个特殊字符', () => {
   assert.equal(escapeHtml(`<a href="x">'&'</a>`), '&lt;a href=&quot;x&quot;&gt;&#39;&amp;&#39;&lt;/a&gt;');
+});
+
+test('作者接口、首页作者链接和作者页', async () => {
+  const { outDir } = await buildFixture();
+  const booksApi = JSON.parse(await readFile(join(outDir, 'api/books.json'), 'utf8'));
+  assert.deepEqual(booksApi.books[0].authors, [{ id: 'zed-author', name: 'Zed Author' }, { id: 'amy-lee', name: 'Amy Lee' }]);
+  assert.equal(booksApi.books[0].author, 'Zed Author, Amy Lee');
+  assert.deepEqual(booksApi.books[1].authors, [{ id: 'ohallaron-co', name: "O'Hallaron & Co" }]);
+
+  const authorsApi = JSON.parse(await readFile(join(outDir, 'api/authors.json'), 'utf8'));
+  assert.deepEqual(authorsApi, { count: 3, authors: [
+    { id: 'amy-lee', name: 'Amy Lee', count: 1 },
+    { id: 'ohallaron-co', name: "O'Hallaron & Co", count: 1 },
+    { id: 'zed-author', name: 'Zed Author', count: 1 },
+  ] });
+
+  const index = await readFile(join(outDir, 'index.html'), 'utf8');
+  assert.match(index, /id="y"[\s\S]*?href="authors\/zed-author.html">Zed Author<\/a>, <a href="authors\/amy-lee.html">Amy Lee<\/a>/);
+  assert.ok(index.includes('<a href="authors/ohallaron-co.html">O&#39;Hallaron &amp; Co</a>'));
+
+  const page = await readFile(join(outDir, 'authors/amy-lee.html'), 'utf8');
+  assert.ok(page.includes('<title>Amy Lee</title>') && page.includes('<h1>Amy Lee</h1>'));
+  assert.deepEqual([...page.matchAll(/<li class="book" id="([^"]+)"/g)].map((m) => m[1]), ['y']);
+  assert.ok(page.includes('href="../index.html"'));
+});
+
+test('作者 id 冲突时构建失败', async () => {
+  const dataFile = join(dir, 'clash.json');
+  await writeFile(dataFile, JSON.stringify([{ ...books[0], author: "O'Neil" }, { ...books[1], author: 'ONeil' }]));
+  await assert.rejects(build({ dataFile, tagsFile: join(dir, 'tags.json'), outDir: join(dir, 'clash-dist') }), /同一个 id oneil/);
 });

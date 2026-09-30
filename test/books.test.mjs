@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { countByStatus, countByTag, loadBooks, loadTags, sortBooks, validateBooks, validateTags } from '../src/books.mjs';
+import { authorId, countByAuthor, countByStatus, parseAuthors, countByTag, loadBooks, loadTags, sortBooks, validateBooks, validateTags } from '../src/books.mjs';
 
 const tags = [{ id: 'design', name: '设计' }, { id: 'unused', name: '未使用' }];
 
 const book = (over = {}) => ({
-  id: 'a', title: '书', author: '作者', year: 2020, status: 'done', added: '2026-01-01', tags: ['design'], ...over,
+  id: 'a', title: '书', author: 'Some Author', year: 2020, status: 'done', added: '2026-01-01', tags: ['design'], ...over,
 });
 
 test('仓库里的书单能通过校验', async () => {
@@ -64,4 +64,30 @@ test('排序：在读、想读、读完；同一状态新加入的在前', () =>
 
 test('按状态计数，没有的状态记 0', () => {
   assert.deepEqual(countByStatus([book(), book({ id: 'b', status: 'reading' })]), { reading: 1, want: 0, done: 1 });
+});
+
+test('作者按逗号拆分并生成 id', () => {
+  assert.equal(authorId("David R. O'Hallaron"), 'david-r-ohallaron');
+  assert.deepEqual(parseAuthors(' Martin Kleppmann ,  Gene Kim'), [
+    { id: 'martin-kleppmann', name: 'Martin Kleppmann' },
+    { id: 'gene-kim', name: 'Gene Kim' },
+  ]);
+});
+
+test('空作者、重名 id、同书重复作者都报错', () => {
+  assert.throws(() => validateBooks([book({ author: 'A,, B' })], tags), /第 1 本书（a）：作者名无效/);
+  assert.throws(() => validateBooks([book({ author: 'A,' })], tags), /作者名无效/);
+  assert.throws(() => validateBooks([book({ author: '!!!' })], tags), /作者名无效/);
+  assert.throws(() => validateBooks([book({ author: "O'Neil" }), book({ id: 'b', author: 'ONeil' })], tags), /生成了同一个 id oneil/);
+  assert.throws(() => validateBooks([book({ author: 'Jo Doe, Jo Doe' })], tags), /作者 Jo Doe 重复/);
+  assert.doesNotThrow(() => validateBooks([book({ author: 'Jo Doe' }), book({ id: 'b', author: 'Jo Doe, Al' })], tags));
+});
+
+test('按作者计数：书数降序，同数按名字', () => {
+  const books = [book({ author: 'Zed, Amy' }), book({ id: 'b', author: 'Amy, Bob' })];
+  assert.deepEqual(countByAuthor(books), [
+    { id: 'amy', name: 'Amy', count: 2 },
+    { id: 'bob', name: 'Bob', count: 1 },
+    { id: 'zed', name: 'Zed', count: 1 },
+  ]);
 });
