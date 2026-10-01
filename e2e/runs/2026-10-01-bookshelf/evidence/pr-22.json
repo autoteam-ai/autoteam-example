@@ -1,0 +1,47 @@
+{
+ "additions": 186,
+ "author": {
+  "is_bot": true,
+  "login": "app/autoteam-implementer"
+ },
+ "body": "## 任务\n\n- 任务编号：无（人在本地改动，用 `autoteam propose` 以 Implementer App 身份提交）\n- 验收标准：由 Code Owner 审阅改动后批准\n\n## 检查\n\nCI 检查见本 PR；本地是否跑过 `make check` 由提交人自行确认。\n\n改动文件：\n\n- `.autoteam/.lock.json` M\n- `.autoteam/autoteam.conf` M\n- `.autoteam/instruction-budget` M\n- `.autoteam/scripts/check-instruction-budget.sh` M\n- `.autoteam/scripts/deployed-issues.sh` A\n- `.autoteam/scripts/loop-guard.sh` M\n- `.github/CODEOWNERS` M\n- `.github/pull_request_template.md` M\n- `.github/workflows/deploy.yml` M\n- `.github/workflows/rollback.yml` M\n- `.gitignore` M\n- `AGENTS.md` M\n- `autoteam` M\n- `skills-lock.json` M\n\n## 范围外发现\n\n无\n",
+ "changedFiles": 14,
+ "createdAt": "2026-09-30T16:22:44Z",
+ "deletions": 61,
+ "mergeCommit": {
+  "oid": "f3f726bfee75f0974ea949e49840f5abb73abb85"
+ },
+ "mergedAt": "2026-09-30T16:24:52Z",
+ "number": 22,
+ "reviews": [
+  {
+   "id": "PRR_kwDOUhiuz88AAAABQAUN3g",
+   "author": {
+    "login": "songhuangcn"
+   },
+   "authorAssociation": "MEMBER",
+   "body": "升级到新版 autoteam，已审阅改动。",
+   "submittedAt": "2026-09-30T16:23:17Z",
+   "includesCreatedEdit": false,
+   "reactionGroups": [],
+   "state": "APPROVED",
+   "commit": {
+    "oid": "982a0ddd7a23d69d187fc7cecd5e21995656bb6c"
+   }
+  }
+ ],
+ "state": "MERGED",
+ "statusCheckRollup": [
+  {
+   "__typename": "CheckRun",
+   "completedAt": "2026-09-30T16:22:59Z",
+   "conclusion": "SUCCESS",
+   "detailsUrl": "https://github.com/autoteam-ai/autoteam-example/actions/runs/36743757018/job/109984584404",
+   "name": "check",
+   "startedAt": "2026-09-30T16:22:52Z",
+   "status": "COMPLETED",
+   "workflowName": "gate"
+  }
+ ],
+ "title": "升级 autoteam 到 f1dc4b5"
+}

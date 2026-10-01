@@ -1,0 +1,40 @@
+
+== 识别项目 ==
+  仓库          autoteam-ai/autoteam-example（默认分支 main）
+  规则文件负责人 @songhuangcn
+  任务编号前缀   AUTO
+  部署 environment production
+
+== 生成文件 ==
+  ✅ 追加受管块到 AGENTS.md
+  ✅ 新建 autoteam
+  ✅ 新建 Makefile（check / dev / deploy 还是 AUTOTEAM-TODO 桩，必须改成真实命令）
+  ✅ 新建 .jscpd.json
+  ✅ 新建 .github/CODEOWNERS
+  ✅ 新建 .github/pull_request_template.md
+  ✅ 新建 .github/workflows/gate.yml
+  ✅ 新建 .github/workflows/deploy.yml
+  ✅ 新建 .github/workflows/rollback.yml
+  ✅ 新建 .autoteam/autoteam.conf
+  ✅ 新建 .autoteam/registry.yaml
+  ✅ 新建 .autoteam/README.md
+  ✅ 新建 .autoteam/playbook.md
+  ✅ 新建 .autoteam/instruction-budget
+  ✅ 新建 .autoteam/scripts/check-instruction-budget.sh
+  ✅ 新建 .autoteam/scripts/deployed-issues.sh
+  ✅ 新建 .autoteam/scripts/gh-app-token.sh
+  ✅ 新建 .autoteam/scripts/loop-guard.sh
+  ✅ 新建 .autoteam/scripts/merge-mode.sh
+  ✅ 新建 .autoteam/scripts/merge-status.sh
+  ✅ 新建 .autoteam/scripts/open-pr.sh
+  ✅ 新建 .autoteam/scripts/protected-paths.sh
+  ✅ 新建 .autoteam/scripts/health-metrics.sh
+  ✅ 追加受管块到 .gitignore
+
+== 下一步 ==
+  1. 把 Makefile 的 check / dev / deploy 改成真实命令，gate.yml 和 deploy.yml 里补上需要的运行时
+  2. 按你的订阅账号和机器填 .autoteam/registry.yaml（autoteam runtimes 列出可用的 runtime）
+  3. 提交这些文件，走 PR 由你合并
+  4. autoteam github    预览 GitHub 改动，确认后加 --apply
+  5. autoteam multica   预览 Multica 改动，确认后加 --apply
+  6. autoteam doctor    逐项检查

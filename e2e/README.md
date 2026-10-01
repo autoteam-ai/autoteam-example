@@ -6,7 +6,7 @@
 
 | 轮次 | 被测版本 | 结论 |
 |---|---|---|
-| [2026-09-29-bookshelf](runs/2026-09-29-bookshelf/) | autoteam `af7a544` | 从零接入到第一个需求上线 32 分钟；发现 1 个阻塞 bug（普通项目缺 `./autoteam`）和 17 条可改进的地方，见 [improvements.md](runs/2026-09-29-bookshelf/improvements.md)；按 ECRS 整理的流程优化见 [ecrs.md](runs/2026-09-29-bookshelf/ecrs.md) |
+| [2026-10-01-bookshelf](runs/2026-10-01-bookshelf/) | autoteam `f1dc4b5` | `autoteam setup` 一条命令接入；「按作者浏览」从提需求到上线 11 分钟，人只提需求和运行一次 `autoteam approve`；发现 10 条可改进的地方，见 [improvements.md](runs/2026-10-01-bookshelf/improvements.md) |
 
 每轮目录里：
 
@@ -14,7 +14,6 @@
 |---|---|
 | `README.md` | 这一轮的完整过程，也是 autoteam 文档「官方示例」的草稿 |
 | `improvements.md` | 从用户侧记录的问题和改进建议，以及做得好的地方 |
-| `ecrs.md` | 用 ECRS（取消、合并、重排、简化）重新整理的流程优化方案和落地顺序 |
 | `timeline.md` | 带时间的事件记录，每行对应到截图或日志 |
 | `requirement.md` | 提给 Planner 的需求原文 |
 | `shots/` | 截图 |
@@ -31,7 +30,8 @@
 | `at.sh` | 在 devcontainer 里跑 `./autoteam`，输出同时写日志：`e2e/at.sh <日志文件> github` |
 | `mc.sh` | 对示例项目的 Multica 工作区执行 multica 命令 |
 | `wait-runs.sh` | 等某个任务上的运行都结束，打印运行记录 |
-| `wait-issue.sh` | 等任务满足条件：`e2e/wait-issue.sh AUTO-4 '.status == "shipping"'` |
+| `wait-issue.sh` | 等任务满足条件：`e2e/wait-issue.sh AUTO-9 '.status == "done"'` |
+| `export-evidence.py` | 导出一轮的任务、评论、运行、PR、Actions 到 `evidence/`，邮箱和本机信息已去掉：`e2e/export-evidence.py <本轮目录> <开始 UTC> <结束 UTC> AUTO-8,AUTO-9 23` |
 
 第一次用先装依赖、登录（Playwright 只在这里用，是 `e2e/` 自己的 devDependency，项目本身仍然零依赖）：
 
@@ -42,10 +42,10 @@ node shoot.mjs login     # 弹出浏览器，登录 GitHub 和 Multica 后关掉
 
 登录态存在 `e2e/.auth/`，已 gitignore。公开页面（PR、线上站点）加 `--anon` 不用登录；规则集页和 Multica 需要登录。
 
-`at.sh`、`mc.sh` 默认的容器名、容器里的仓库路径、Multica 工作区 ID 是这台机器上的值，换机器用 `E2E_CONTAINER`、`E2E_CONTAINER_REPO`、`E2E_WORKSPACE_ID` 覆盖。
+`at.sh`、`mc.sh`、`export-evidence.py` 默认的容器名、仓库、容器里的仓库路径、Multica 工作区 ID 是这台机器上的值，换机器用 `E2E_CONTAINER`、`E2E_CONTAINER_REPO`、`E2E_WORKSPACE_ID`、`E2E_REPO` 覆盖。
 
 ## 下一轮从哪开始
 
 - 书架的初始版本是 `baseline` tag（f95c63c），接入 autoteam 之前的样子。
-- 上一个示例（订单命令行，旧版布局）在 `archive/orders-v0.2` 分支。
 - 示例项目的 autopilot 已用 `autoteam stop --apply` 暂停，要继续用就 `./autoteam resume --apply`。
+- Multica 自动化页面按「启用」筛选：工作区里另有 6 个暂停的报告类 autopilot，不在本项目的 `AUTOTEAM_AUTOPILOTS` 里，保持暂停，resume 之后要再暂停一次（autoteam 的 HDGCS-165 会修）。

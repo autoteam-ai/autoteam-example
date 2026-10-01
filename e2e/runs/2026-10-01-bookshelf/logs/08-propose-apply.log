@@ -1,0 +1,29 @@
+
+== propose：autoteam-ai/autoteam-example ← propose/20260930-155037 ==
+  改动来源：分支上 1 个提交
+  PR 标题：升级 autoteam 到 f1dc4b5
+  目标分支：main
+  改动文件（14）：
+    M .autoteam/.lock.json
+    M .autoteam/autoteam.conf
+    M .autoteam/instruction-budget
+    M .autoteam/scripts/check-instruction-budget.sh
+    A .autoteam/scripts/deployed-issues.sh
+    M .autoteam/scripts/loop-guard.sh
+    M .github/CODEOWNERS
+    M .github/pull_request_template.md
+    M .github/workflows/deploy.yml
+    M .github/workflows/rollback.yml
+    M .gitignore
+    M AGENTS.md
+    M autoteam
+    M skills-lock.json
+remote: 
+remote: Create a pull request for 'propose/20260930-155037' on GitHub by visiting:        
+remote:      https://github.com/autoteam-ai/autoteam-example/pull/new/propose/20260930-155037        
+remote: 
+  已推送 propose/20260930-155037
+PR：https://github.com/autoteam-ai/autoteam-example/pull/22
+合并模式：platform
+自动合并：auto
+  PR 由 Implementer App 开出，等你（Code Owner）批准；本命令不批准也不合并

@@ -1,0 +1,38 @@
+[
+ {
+  "attachments": [],
+  "author_id": "2d4b6b6a-064e-434f-a29d-aa13120b91aa",
+  "author_type": "agent",
+  "content": "需求已拆成 1 个子任务，放在 `backlog`：\n\n- 第 1 批：AUTO-9 书架加作者页（拆分作者与 id 冲突校验、首页作者链接、`authors/<id>.html`、`api/books.json` 加 `authors`、新增 `api/authors.json`），预计改动远低于 400 行，验收都在线上。\n\n这是新功能，按放行规则不能自主放行，请 [@Song](mention://member/9727eac2-da55-4a55-97d0-2b9ef22312be) 批准（把 AUTO-9 改成 `todo`）。",
+  "created_at": "2026-09-30T23:33:19Z",
+  "id": "01a0f4aa-5762-7d98-addd-5a9ed2071451",
+  "issue_id": "01a0f4a9-c85d-7097-a294-89beb053920c",
+  "parent_id": null,
+  "reactions": [],
+  "resolved_at": null,
+  "resolved_by_id": null,
+  "resolved_by_type": null,
+  "revision": 1,
+  "source_task_id": "01a0f4a9-c86f-7ab3-b9a7-4872d25bde2b",
+  "type": "comment",
+  "updated_at": "2026-09-30T23:33:19Z"
+ },
+ {
+  "attachments": [],
+  "author_id": "2d4b6b6a-064e-434f-a29d-aa13120b91aa",
+  "author_type": "agent",
+  "content": "【验收通过】a507e8b\n\n线上（version.json 的 sha 为 a507e8b，与 main 一致）逐条核对：\n1. 首页共 20 个作者链接，等于各书作者数之和（20）；多作者的书每位作者都有链接。\n2. `authors/martin-kleppmann.html`：标题是作者名，列出其书，有指向 `../index.html` 的返回链接；`authors/gene-kim.html` 列出 2 本书。\n3. `api/books.json` 每本书带 `authors`（id + 名字）。\n4. `api/authors.json`：19 位作者，书数降序、同数按名字排序（脚本校验通过），书数之和 20。\n5. 重名 id 构建失败由 AUTO-9 的测试覆盖，已合并（#23）。\n\n[@Song](mention://member/9727eac2-da55-4a55-97d0-2b9ef22312be) 作者页需求已完成。",
+  "created_at": "2026-09-30T23:43:19Z",
+  "id": "01a0f4b3-7e04-7882-917f-d90e7fbee9c9",
+  "issue_id": "01a0f4a9-c85d-7097-a294-89beb053920c",
+  "parent_id": null,
+  "reactions": [],
+  "resolved_at": null,
+  "resolved_by_id": null,
+  "resolved_by_type": null,
+  "revision": 1,
+  "source_task_id": "01a0f4b3-2923-744e-8425-af21f11a58ca",
+  "type": "comment",
+  "updated_at": "2026-09-30T23:43:19Z"
+ }
+]
