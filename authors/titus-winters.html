@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Titus Winters</title>
+<style>
+  :root { --ink: #1f2328; --muted: #59636e; --line: #d1d9e0; --bg: #f6f8fa; --card: #fff;
+    --reading: #0969da; --want: #9a6700; --done: #1a7f37; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif;
+    color: var(--ink); background: var(--bg); }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { margin: 0 0 4px; font-size: 28px; }
+  .lead { margin: 0 0 20px; color: var(--muted); }
+  .summary { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 24px; padding: 0; list-style: none; }
+  .summary li { padding: 4px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); }
+  .books { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .book { padding: 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+  .book h2 { margin: 0; font-size: 17px; }
+  .meta { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+  .note { margin: 8px 0 0; }
+  .tags { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+  .tags a { margin-right: 12px; }
+  .status { display: inline-block; margin-left: 8px; padding: 0 8px; border-radius: 999px; font-size: 12px;
+    font-weight: 600; vertical-align: 2px; color: #fff; }
+  .status-reading { background: var(--reading); }
+  .status-want { background: var(--want); }
+  .status-done { background: var(--done); }
+  footer { margin-top: 32px; color: var(--muted); font-size: 13px; }
+  a { color: #0969da; }
+</style>
+</head>
+<body>
+<main>
+<h1>Titus Winters</h1>
+<p class="lead"><a href="../index.html">返回首页</a> · 1 本书</p>
+<ul class="books">
+<li class="book" id="software-engineering-at-google">
+  <h2>Google 软件工程<span class="status status-want">想读</span></h2>
+  <p class="meta"><a href="../authors/titus-winters.html">Titus Winters</a>, <a href="../authors/tom-manshreck.html">Tom Manshreck</a>, <a href="../authors/hyrum-wright.html">Hyrum Wright</a> · 2020</p>
+  <p class="note">代码评审和大规模测试两章先看。</p>
+  <p class="tags"><a href="../tags/engineering.html">软件工程</a><a href="../tags/teamwork.html">团队协作</a></p>
+</li>
+</ul>
+<footer>
+  由 <a href="https://github.com/autoteam-ai/autoteam">autoteam</a> 示例团队维护 ·
+  版本 <code>886532b</code> · 数据接口 <a href="../api/books.json">api/books.json</a>
+</footer>
+</main>
+</body>
+</html>

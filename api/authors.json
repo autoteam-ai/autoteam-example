@@ -1,0 +1,100 @@
+{
+  "count": 19,
+  "authors": [
+    {
+      "id": "gene-kim",
+      "name": "Gene Kim",
+      "count": 2
+    },
+    {
+      "id": "andrew-hunt",
+      "name": "Andrew Hunt",
+      "count": 1
+    },
+    {
+      "id": "david-r-ohallaron",
+      "name": "David R. O'Hallaron",
+      "count": 1
+    },
+    {
+      "id": "david-thomas",
+      "name": "David Thomas",
+      "count": 1
+    },
+    {
+      "id": "donella-h-meadows",
+      "name": "Donella H. Meadows",
+      "count": 1
+    },
+    {
+      "id": "eric-evans",
+      "name": "Eric Evans",
+      "count": 1
+    },
+    {
+      "id": "frederick-p-brooks-jr",
+      "name": "Frederick P. Brooks Jr.",
+      "count": 1
+    },
+    {
+      "id": "george-spafford",
+      "name": "George Spafford",
+      "count": 1
+    },
+    {
+      "id": "hyrum-wright",
+      "name": "Hyrum Wright",
+      "count": 1
+    },
+    {
+      "id": "jez-humble",
+      "name": "Jez Humble",
+      "count": 1
+    },
+    {
+      "id": "john-ousterhout",
+      "name": "John Ousterhout",
+      "count": 1
+    },
+    {
+      "id": "kevin-behr",
+      "name": "Kevin Behr",
+      "count": 1
+    },
+    {
+      "id": "martin-fowler",
+      "name": "Martin Fowler",
+      "count": 1
+    },
+    {
+      "id": "martin-kleppmann",
+      "name": "Martin Kleppmann",
+      "count": 1
+    },
+    {
+      "id": "nicole-forsgren",
+      "name": "Nicole Forsgren",
+      "count": 1
+    },
+    {
+      "id": "randal-e-bryant",
+      "name": "Randal E. Bryant",
+      "count": 1
+    },
+    {
+      "id": "steve-mcconnell",
+      "name": "Steve McConnell",
+      "count": 1
+    },
+    {
+      "id": "titus-winters",
+      "name": "Titus Winters",
+      "count": 1
+    },
+    {
+      "id": "tom-manshreck",
+      "name": "Tom Manshreck",
+      "count": 1
+    }
+  ]
+}
