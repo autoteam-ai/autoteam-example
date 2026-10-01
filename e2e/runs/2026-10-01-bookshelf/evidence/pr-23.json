@@ -1,0 +1,47 @@
+{
+ "additions": 121,
+ "author": {
+  "is_bot": true,
+  "login": "app/autoteam-implementer"
+ },
+ "body": "## 任务\n\n- 任务编号：AUTO-9\n- 验收标准：见任务描述\n\n## 检查\n\n`make check` 通过：19 个单元/构建测试全部通过，语法检查与完整构建通过。本地 `make dev` 验证了 `api/authors.json`、`authors/martin-kleppmann.html`。线上验收待部署后进行。\n\n## 范围外发现\n\n无。\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n",
+ "changedFiles": 5,
+ "createdAt": "2026-09-30T23:37:15Z",
+ "deletions": 9,
+ "mergeCommit": {
+  "oid": "a507e8b2ca217770bf2726c533dbde2572845bda"
+ },
+ "mergedAt": "2026-09-30T23:41:50Z",
+ "number": 23,
+ "reviews": [
+  {
+   "id": "PRR_kwDOUhiuz88AAAABQETG3A",
+   "author": {
+    "login": "autoteam-reviewer"
+   },
+   "authorAssociation": "NONE",
+   "body": "评审通过：自动检查通过；作者拆分、id 冲突校验、作者页及两个 API 的实现符合任务要求。未发现阻塞项。",
+   "submittedAt": "2026-09-30T23:39:44Z",
+   "includesCreatedEdit": false,
+   "reactionGroups": [],
+   "state": "APPROVED",
+   "commit": {
+    "oid": "099512fbb372069563da4d52361b078faa17a755"
+   }
+  }
+ ],
+ "state": "MERGED",
+ "statusCheckRollup": [
+  {
+   "__typename": "CheckRun",
+   "completedAt": "2026-09-30T23:37:29Z",
+   "conclusion": "SUCCESS",
+   "detailsUrl": "https://github.com/autoteam-ai/autoteam-example/actions/runs/36792025354/job/110146890440",
+   "name": "check",
+   "startedAt": "2026-09-30T23:37:21Z",
+   "status": "COMPLETED",
+   "workflowName": "gate"
+  }
+ ],
+ "title": "AUTO-9 书架加作者页：拆分作者、作者页、authors 接口"
+}

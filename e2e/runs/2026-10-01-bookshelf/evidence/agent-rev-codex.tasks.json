@@ -1,0 +1,58 @@
+[
+ {
+  "agent_id": "f2a0dee6-bc60-4df3-b5e4-77f3ba7fd6fb",
+  "attempt": 1,
+  "attribution": {
+   "delegated_from_task_id": "01a0f4ac-f895-7609-847b-d72dbf38c639",
+   "evidence": {
+    "kind": "comment",
+    "ref_id": "01a0f4ae-3df3-771d-afd0-4ff6000e7ab9"
+   },
+   "initiator": {
+    "email": "<redacted>",
+    "id": "9727eac2-da55-4a55-97d0-2b9ef22312be",
+    "name": "Song"
+   },
+   "originator": {
+    "email": "<redacted>",
+    "id": "9727eac2-da55-4a55-97d0-2b9ef22312be",
+    "name": "Song"
+   },
+   "precise": true,
+   "source": "delegation"
+  },
+  "completed_at": "2026-09-30T23:40:17Z",
+  "created_at": "2026-09-30T23:37:34Z",
+  "delivered_comment_ids": [
+   "01a0f4ae-3df3-771d-afd0-4ff6000e7ab9"
+  ],
+  "dispatched_at": "2026-09-30T23:37:35Z",
+  "error": null,
+  "id": "01a0f4ae-3dff-7514-be8d-02a04504b7c4",
+  "issue_id": "01a0f4aa-3c7e-7261-aea2-bfeaf3b755d2",
+  "kind": "comment",
+  "max_attempts": 2,
+  "priority": 2,
+  "result": {
+   "output": "PR [#23](https://github.com/autoteam-ai/autoteam-example/pull/23) 已批准，自动检查通过，未发现阻塞项。评审结论已回复在任务评论中；任务保持 `in_review`，等待平台合并和部署。",
+   "pr_url": ""
+  },
+  "runtime_id": "19352720-574b-4d59-87a8-b5d12468236d",
+  "started_at": "2026-09-30T23:37:35Z",
+  "status": "completed",
+  "supplement_capability": "task-supplement-v1",
+  "trigger_comment_id": "01a0f4ae-3df3-771d-afd0-4ff6000e7ab9",
+  "trigger_summary": "PR 已开：https://github.com/autoteam-ai/autoteam-example/pull/23  `open-pr.sh` 输出： ``` PR：https://github.com/autoteam-ai/autoteam-example/pull/23 合并模式：platform 自动合并：auto ```  - `make check`：19 个测试全部通过（含新…",
+  "usage": [
+   {
+    "cache_read_tokens": 353280,
+    "cache_write_tokens": 0,
+    "input_tokens": 44015,
+    "model": "gpt-6-sol",
+    "output_tokens": 2430,
+    "provider": "codex"
+   }
+  ],
+  "workspace_id": "a46cb0a2-9a39-4b53-81bd-f305cb5112d4"
+ }
+]

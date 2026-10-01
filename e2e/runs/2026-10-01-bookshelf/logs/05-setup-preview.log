@@ -1,0 +1,83 @@
+
+== 第 1/2 步：预览 GitHub ==
+
+== 仓库 autoteam-ai/autoteam-example ==
+  所有者类型 Organization，可见性 public
+  ✅ 规则集、自动合并、合并队列都可用（组织仓库）
+
+== 仓库设置 ==
+  ✅ 已符合：允许自动合并、合并后删分支、只保留 squash
+
+== 规则集 autoteam ==
+  ✅ 规则集已符合（id 24147021）
+
+== 部署 environment ==
+  ✅ environment production 已存在
+
+== GitHub App ==
+  ✅ impl App autoteam-implementer（5011663）已安装
+  ⚠️  impl App 装在组织全部仓库上：私钥泄露会影响整个组织；若只用于 autoteam-ai/autoteam-example，到 Install App 改为 Only select repositories；有意多仓库共用时，逐个核对安装范围和权限后设置 AUTOTEAM_APP_ALL_REPOS_ACK=on
+  ✅ review App autoteam-reviewer（5011589）已安装
+  ⚠️  review App 装在组织全部仓库上：私钥泄露会影响整个组织；若只用于 autoteam-ai/autoteam-example，到 Install App 改为 Only select repositories；有意多仓库共用时，逐个核对安装范围和权限后设置 AUTOTEAM_APP_ALL_REPOS_ACK=on
+  ✅ planner App autoteam-planner（5011610）已安装
+  ⚠️  planner App 装在组织全部仓库上：私钥泄露会影响整个组织；若只用于 autoteam-ai/autoteam-example，到 Install App 改为 Only select repositories；有意多仓库共用时，逐个核对安装范围和权限后设置 AUTOTEAM_APP_ALL_REPOS_ACK=on
+  
+  三个 App 各自的权限（都只装本仓库，私钥放各自机器的 AUTOTEAM_KEYS_DIR 或仓库的 .autoteam/local/）：
+    impl     Contents 读写、Pull requests 读写、Workflows 读写   推分支、开 PR、开自动合并；
+                                                没有 Workflows 连含工作流改动的 PR 都提不了
+    review   Contents 读写、Pull requests 读写   提交评审。写权限不能省：App 的批准
+                                                只有在它有写权限时才计入必需审批数
+    planner  Actions 读写、Contents 只读、Pull requests 只读   查 PR、触发回滚
+     App 由人在 GitHub 上点确认创建和安装：autoteam github --create-apps 用 Manifest 流程创建（会写好私钥和 App ID），安装仍要人做
+
+== 其他检查 ==
+  ✅ CODEOWNERS 没有错误
+  ✅ secret MULTICA_DEPLOY_HOOK 已设置
+
+== 结论 ==
+  ✅ 平台闸门完整：规则集 + 自动合并 + 合并队列，所有 agent 都绕不过
+
+以上是预览，没有做任何改动。确认后加 --apply 执行。
+
+== 第 2/2 步：预览 Multica ==
+
+== 连接 Multica ==
+  multica：/usr/local/bin/multica（multica 0.5.0 (commit: 2df765a3c, built: 2026-09-18T10:09:36Z)）
+  profile：默认，工作区：autoteam（任务前缀 AUTO）
+
+== 旧状态迁移 ==
+  ✅ 旧状态 shipping 不存在或已归档
+
+== agent ==
+  ✅ agent planner 已是最新
+  ✅ agent impl-claude 已是最新
+  ✅ agent impl-codex 已是最新
+  ✅ agent rev-claude 已是最新
+  ✅ agent rev-codex 已是最新
+  ✅ agent auditor 已是最新
+
+== 项目 ==
+  ✅ 项目 autoteam-example 已存在，已挂仓库
+  ✅ 运营笔记已存在（1 条）
+
+== autopilot ==
+  ✅ autopilot「每日摘要」已是最新
+  ✅ 定时触发已是 0 9 * * *（Asia/Shanghai）
+  ✅ autopilot「部署结果」已是最新
+  ✅ 部署 webhook 已存在，GitHub secret MULTICA_DEPLOY_HOOK 已设置
+  跳过未启用的 autopilot「月度方向报告」（direction）
+  ✅ autopilot「周度健康报告」已是最新
+  ✅ 定时触发已是 0 9 * * 1（Asia/Shanghai）
+  ✅ autopilot「推进巡检」已是最新
+  ✅ 定时触发已是 0 */2 * * *（Asia/Shanghai）
+  ✅ autopilot「规则复盘」已是最新
+  ✅ 定时触发已是 0 12 * * 1（Asia/Shanghai）
+
+== 需要你在 Multica 界面里做的事 ==
+  GitHub 集成（可选）：Settings → GitHub 连接仓库后，任务卡片上能看到关联 PR 和 CI 状态
+
+以上是预览，没有做任何改动。确认后加 --apply 执行。
+  Multica 网页：agents https://multica.ai/autoteam/agents
+               autopilots https://multica.ai/autoteam/autopilots
+               项目看板 https://multica.ai/autoteam/projects
+  两端预览完成，未执行改动；加 --apply 执行。
